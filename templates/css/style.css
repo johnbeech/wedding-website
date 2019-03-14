@@ -1,0 +1,256 @@
+html, body {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.main {
+  text-align: center;
+  margin: auto;
+}
+
+.footer {
+  text-align: center;
+}
+
+.kitty.image {
+  display: inline-block;
+  min-height: 200px;
+  width: 398px;
+  padding-bottom: 20%;
+  background-color: #CC9966;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+
+@media only screen and (min-width: 992px) {
+  .main {
+    max-width: 800px;
+  }
+
+  .entry > .value {
+    display: inline-block;
+  }
+
+  .day.value {
+    display: inline-block;
+    position: absolute;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .kitty.image {
+    min-height: 150px;
+    width: 100%;
+    padding-bottom: 10%;
+  }
+
+  .entry > .value {
+    display: block;
+  }
+
+  .day.value {
+    display: block;
+  }
+}
+
+.ezio {
+  background-image: url(../images/ezio-kitty.png);
+}
+
+.icarus {
+  background-image: url(../images/icarus-kitty.png);
+}
+
+.feed {
+
+}
+
+.feed > .entry {
+  border-radius: 12px;
+  background: #CC9966;
+  padding: 6px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.entry > .label {
+  display: none;
+}
+
+.entry > .value {
+  margin-bottom: 6px;
+}
+
+.date.value {
+  display: none; /* Need to parse gsheets number as date */
+}
+
+.dow.value {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  padding: 12px;
+  font-size: 150%;
+}
+
+.notes.value {
+  display: block;
+  border-radius: 6px;
+  padding: 6px 12px;
+  line-height: 1.4em;
+  background: rgba(255,255,255,0.6);
+  font-style: italic;
+}
+
+.day.value::before {
+  content: 'DAY';
+  font-weight: bold;
+  font-size: 80%;
+  margin-right: 5px;
+}
+
+.day.value {
+  top: 4px;
+  left: 4px;
+  text-transform: capitalize;
+  padding: 6px;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+  border-bottom: 2px solid black;
+}
+
+.wetFoodMorning.value::before {
+  content: 'AM';
+  font-weight: bold;
+  font-size: 80%;
+  margin-right: 5px;
+}
+.wetFoodMorning.value {
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border-bottom: 2px solid black;
+}
+
+.dryFoodMorning.value::before {
+  font-weight: bold;
+  font-size: 80%;
+  margin-right: 5px;
+}
+.dryFoodMorning.value {
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+  color: white;
+  border-bottom: 2px solid black;
+}
+
+.wetFoodEvening.value::before {
+  content: 'PM';
+  font-weight: bold;
+  font-size: 80%;
+  margin-right: 5px;
+}
+.wetFoodEvening.value {
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border-bottom: 2px solid black;
+}
+
+.dryFoodEvening.value::before {
+  font-weight: bold;
+  font-size: 80%;
+  margin-right: 5px;
+}
+.dryFoodEvening.value {
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+  color: white;
+  border-bottom: 2px solid black;
+}
+
+.wetTotalGrams.value {
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.wetTotalGrams.value::after {
+  content: 'g wet';
+  font-weight: bold;
+  font-size: 80%;
+  margin-left: 3px;
+}
+
+.dryTotalGrams.value {
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.1);
+  color: black;
+  margin-bottom: 6px;
+  border-bottom: 2px solid black;
+}
+
+.dryTotalGrams.value::after {
+  content: 'g dry';
+  font-weight: bold;
+  font-size: 80%;
+  margin-left: 3px;
+}
+
+/* Food Colour Chart */
+.value.Chicken {
+  background: #F9CB9C;
+  color: black;
+}
+.value.Duck {
+  background: #B4A7D6;
+  color: black;
+}
+.value.Turkey {
+  background: #C59F7B;
+  color: black;
+}
+.value.Poultry {
+  background: #FFE599;
+  color: black;
+}
+.value.Beef {
+  background: #783F04;
+  color: white;
+}
+.value.Tuna {
+  background: #A4C2F4;
+  color: black;
+}
+.value.White.Fish {
+  background: #D0E0E3;
+  color: black;
+}
+.value.Salmon {
+  background: #F4CCCC;
+  color: black;
+}
+.value.Coley {
+  background: #CFE2F3;
+  color: black;
+}
+.value.Lamb {
+  background: #660000;
+  color: white;
+}
+
+.entry > div > img {
+  width: 100%;
+  border-radius: 6px;
+}
