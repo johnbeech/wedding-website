@@ -5,7 +5,7 @@
   "description": "A website for our wedding.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon start.js",
+    "start": "nodemon ./start.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "quick-publish": "node run build-website && node deploy live-text"
   },
@@ -28,16 +28,17 @@
   },
   "homepage": "https://github.com/johnbeech/wedding-website#readme",
   "devDependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
     "ftp-deploy": "^2.3.1",
     "handlebars": "^4.1.0",
     "nodemon": "^1.18.10",
-    "promise-path": "^1.4.0"
-  },
-  "dependencies": {
     "exif": "^0.6.0",
     "sharp": "^0.21.3",
     "unzipper": "^0.9.11"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "php-express": "git://github.com/Markavian/php-express.git#patch-1",
+    "promise-path": "^1.4.0"
   }
 }
