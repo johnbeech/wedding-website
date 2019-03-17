@@ -34,6 +34,9 @@ const modes = {
   'live-text': () => deploy({
     include: ['**/*.html', '**/*.css', '/**/*.js']
   }),
+  'live-images': () => deploy({
+    include: ['**/*.png', '**/*.jpg']
+  }),
   'live-php': () => deploy({
     include: ['views/*.php']
   }),
