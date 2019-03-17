@@ -28,12 +28,10 @@
   },
   "homepage": "https://github.com/johnbeech/wedding-website#readme",
   "devDependencies": {
+    "exif": "^0.6.0",
     "ftp-deploy": "^2.3.1",
     "handlebars": "^4.1.0",
-    "nodemon": "^1.18.10",
-    "exif": "^0.6.0",
-    "sharp": "^0.21.3",
-    "unzipper": "^0.9.11"
+    "nodemon": "^1.18.10"
   },
   "dependencies": {
     "cors": "^2.8.5",

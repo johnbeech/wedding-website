@@ -20,14 +20,6 @@ async function start () {
     }
   }
 
-  scripts['process-photos'] = async () => {
-    return processScripts([
-      'unzip-photos',
-      'exif-photos',
-      'resize-photos'
-    ], scripts)
-  }
-
   scripts.all = async () => {
     return processScripts([
       'build-website'
