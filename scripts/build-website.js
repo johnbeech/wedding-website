@@ -48,12 +48,12 @@ async function copyStaticFile(filePath, basePosition, outPosition) {
 
 async function findTemplateFiles() {
   const files = await find(templatepath('**/*.*'))
-  return files.filter(n => /(css|html|js|md)/.test(n))
+  return files.filter(n => /(html)/.test(n))
 }
 
 async function findStaticFiles() {
   const files = await find(templatepath('**/*.*'))
-  return files.filter(n => !/\.(css|html|js|md)/.test(n))
+  return files.filter(n => !/\.(html)/.test(n))
 }
 
 async function findViewsFiles() {
@@ -80,7 +80,7 @@ async function start () {
   await clean(buildpath('css'))
   await clean(buildpath('images'))
   await clean(buildpath('index.html'))
-  await processTemplates(templateFiles, feed)
+  await copyStaticFiles(templateFiles, templatepath, buildpath)
   await copyStaticFiles(staticFiles, templatepath, buildpath)
   await copyStaticFiles(vendorFiles, vendorpath, vendorbuildpath)
   await copyStaticFiles(viewsFiles, viewspath, viewsbuildpath)

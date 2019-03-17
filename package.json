@@ -14,7 +14,7 @@
       "build/*"
     ],
     "delay": "250",
-    "ext": "js,json,html,css"
+    "ext": "js,json,html,css,php,md"
   },
   "repository": {
     "type": "git",
