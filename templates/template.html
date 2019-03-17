@@ -2,7 +2,14 @@
 <html>
 <head>
   <title>{{title}}</title>
-  <meta charset="utf-8">
+  <!-- Location: {{location}} -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="/bcss/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+
+
   <meta name="description" content="Our wedding website for 2019.">
   <meta name="keywords" content="john,hannah,wedding,2019,photos">
   <meta name="author" content="John Beech, and Hannah Bunce">
@@ -26,11 +33,16 @@
   <meta name="theme-color" content="#CC9966">
 
   <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <style>
+  navigation, footer {
+    background-image: url('{{backgroundImage}}');
+  }
+  </style>
 </head>
 <body>
   <div class="main">
-    <h1>{{title}}</h1>
-    <p>{{description}}</p>
+    {{body}}
   </div>
   <div class="footer">
     <p>For more information about this site, please visit: <a href="https://github.com/johnbeech/wedding-website">johnbeech/wedding-website</a></p>

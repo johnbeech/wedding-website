@@ -4,7 +4,11 @@ const handlebars = require('handlebars')
 
 const datapath = position(__dirname, '../data')
 const templatepath = position(__dirname, '../templates')
+const vendorpath = position(__dirname, '../vendor')
+const viewspath = position(__dirname, '../views')
 const buildpath = position(__dirname, '../build')
+const vendorbuildpath = position(__dirname, '../build/vendor')
+const viewsbuildpath = position(__dirname, '../build/views')
 const report = (...messages) => console.log('[Build Website]', ...messages)
 
 async function processTemplates (files, data) {
@@ -26,17 +30,17 @@ async function processTemplate(filePath, data) {
   return write(outFilePath, outputString, 'utf8')
 }
 
-async function copyStaticFiles(files) {
-  const staticFileWork = files.map(copyStaticFile)
-  return Promise.all(staticFileWork)
+async function copyStaticFiles(files, basePosition, outPosition) {
+  const work = files.map(f => copyStaticFile(f, basePosition, outPosition))
+  return Promise.all(work)
 }
 
-async function copyStaticFile(filePath) {
+async function copyStaticFile(filePath, basePosition, outPosition) {
   const staticFile = await read(filePath)
-  const fileBasePath = templatepath('./')
+  const fileBasePath = basePosition('./')
   const fragmentPath = filePath.substring(fileBasePath.length)
   const fragmentBasePath = path.dirname(fragmentPath)
-  const outFilePath = buildpath(fragmentPath)
+  const outFilePath = outPosition(fragmentPath)
 
   report('Copying file:', fragmentPath, staticFile.length, 'bytes')
   return write(outFilePath, staticFile)
@@ -44,12 +48,20 @@ async function copyStaticFile(filePath) {
 
 async function findTemplateFiles() {
   const files = await find(templatepath('**/*.*'))
-  return files.filter(n => /(css|html|js)/.test(n))
+  return files.filter(n => /(html)/.test(n))
 }
 
 async function findStaticFiles() {
   const files = await find(templatepath('**/*.*'))
-  return files.filter(n => !/(css|html|js)/.test(n))
+  return files.filter(n => !/\.(html)/.test(n))
+}
+
+async function findViewsFiles() {
+  return await find(viewspath('**/*.*'))
+}
+
+async function findVendorFiles() {
+  return find(vendorpath('**/*.*'))
 }
 
 async function readJson(file) {
@@ -60,14 +72,18 @@ async function readJson(file) {
 async function start () {
   const templateFiles = await findTemplateFiles()
   const staticFiles = await findStaticFiles()
+  const vendorFiles = await findVendorFiles()
+  const viewsFiles = await findViewsFiles()
 
   const feed = await readJson('wedding-data.json')
 
   await clean(buildpath('css'))
   await clean(buildpath('images'))
   await clean(buildpath('index.html'))
-  await processTemplates(templateFiles, feed)
-  await copyStaticFiles(staticFiles)
+  await copyStaticFiles(templateFiles, templatepath, buildpath)
+  await copyStaticFiles(staticFiles, templatepath, buildpath)
+  await copyStaticFiles(vendorFiles, vendorpath, vendorbuildpath)
+  await copyStaticFiles(viewsFiles, viewspath, viewsbuildpath)
   return true
 }
 

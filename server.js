@@ -1,14 +1,35 @@
 const express = require('express')
-const cors = require('cors')
 const path = require('path')
-const http = require('http')
+const app = express()
 
-let server = express()
-const httpPort = 9750
+const phpExpress = require('php-express')({
+  binPath: 'php' // assumes php is in your PATH
+})
 
-server.use(cors())
-server.use('/', express.static(path.join(__dirname, 'build')))
+app.use('/images', express.static(path.join(__dirname, 'build/images')))
+app.use('/css', express.static(path.join(__dirname, 'build/css')))
+app.get('/*', render)
+app.post('/*', render)
 
-http.createServer(server).listen(httpPort, () => {
-    console.log(`Wedding Website listening on http://localhost:${httpPort}/`)
+function render(req, res) {
+  phpExpress.engine(path.join(__dirname, 'build/views/render.php'), {
+    method: req.method,
+    get: req.query,
+    post: req.body,
+    server: {
+      REQUEST_URI: req.url,
+      HTTPS: true
+    }
+  }, (err, body) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      res.send(body)
+    }
+  })
+}
+
+const server = app.listen(9750, function () {
+  const port = server.address().port
+  console.log('Wedding Website server listening at http://%s:%s/', 'localhost', port);
 })
