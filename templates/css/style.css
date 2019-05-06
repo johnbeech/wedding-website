@@ -1,11 +1,41 @@
 html, body {
-  font-family: sans-serif;
+  font-family: Lora, serif;
   font-size: 14px;
+  color: white;
+  background-color: #574b43;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: block;
+  padding: 6px;
+  background-color: black;
+}
+
+.header > heading {
+  font-family: Lato, sans-serif;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .main {
   text-align: center;
   margin: auto;
+  font-weight: 600;
+  font-style: oblique;
+}
+
+.main > h1 {
+  display: inline-block;
+  border-top: 2px solid #6fa8dc;
+  border-bottom: 2px solid #6fa8dc;
+  padding: 2px 0 4px 0;
+  font-style: normal;
+}
+
+.main > p {
+  padding: 0 12px;
 }
 
 .footer {
@@ -15,6 +45,8 @@ html, body {
 .main img {
   max-width: 100%;
   max-height: 60vh;
+  border-top: 2px solid #6fa8dc;
+  border-bottom: 2px solid #6fa8dc;
 }
 
 @media only screen and (min-width: 992px) {
