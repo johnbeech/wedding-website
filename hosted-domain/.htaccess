@@ -1,0 +1,4 @@
+DirectoryIndex index.php
+
+RewriteEngine On
+RewriteRule rsvp https://wedding.hannahjohn2019.wedding/rsvp [R=301,L]
