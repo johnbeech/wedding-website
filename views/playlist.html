@@ -1,6 +1,28 @@
-<div id="playlist">
-  <p>Clever Spotify playlist thing goes here</p>
-  <p>{{ message }}</p>
+<div id="playlist" style="display: none;">
+  <div v-if="auth" class="auth">
+    <div v-if="auth.display_name">
+      <h2>Hi {{ auth.display_name}}!</h2>
+      <p>Please pick some awesome tunes for our party...</p>
+      <input type="text" class="search" maxlength="100" name="searchTerm" />
+      <pre>Results: {{ search.results | pretty }}</pre>
+    </div>
+
+    <div v-if="auth.message">
+      <p class="message">{{ auth.message }}</p>
+    </div>
+
+    <div v-if="auth.advice">
+      <p class="advice">{{ auth.advice }}</p>
+    </div>
+
+    <div v-if="auth.error">
+      <p class="error">{{ auth.error }}</p>
+    </div>
+  </div>
+
+  <div v-if="playlist.tracks">
+    <pre>Tracks: {{ playlist.tracks | pretty }}</pre>
+  </div>
 </div>
 
 <script src="/javascript/playlist.js"></script>
