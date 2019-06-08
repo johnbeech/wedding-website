@@ -1,3 +1,23 @@
+<style>
+  .album.track {
+    border: 1px solid black;
+    border-radius: 6px;
+    margin: 5px 0;
+  }
+  .track.name {
+
+  }
+  .album.name {
+
+  }
+  .artist.name {
+
+  }
+  .name > label {
+    margin-right: 5px;
+  }
+</style>
+
 <div id="playlist" style="display: none;">
   <div v-if="auth" class="auth">
     <div v-if="auth.display_name">
@@ -6,9 +26,9 @@
       <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
 
       <div v-for="track in search.results.tracks.items" class="album track">
-        <b class="track name">Track: {{ track.name }}</b>
-        <b class="album name">Album: {{ track.album.name }}</b>
-        <b v-for="artist in track.artists" class="artist name">Artist: {{ artist.name }}</b>
+        <p class="track name"><label>Track:</label>{{ track.name }}</p>
+        <p class="album name"><label>Album:</label>{{ track.album.name }}</p>
+        <p v-for="artist in track.artists" class="artist name"><label>Artist:</label>{{ artist.name }}</p>
       </div>
 
       <pre>Results: {{ search.results | pretty }}</pre>
