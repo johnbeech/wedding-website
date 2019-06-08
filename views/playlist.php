@@ -13,7 +13,7 @@ $session = new SpotifyWebAPI\Session(
 $api = new SpotifyWebAPI\SpotifyWebAPI();
 
 function output($data) {
-  header('Content-type: application/json');
+  header('Content-Type: application/json');
   echo json_encode($data);
 }
 
@@ -58,5 +58,6 @@ if(isset($_SESSION['accessToken'])) {
   ];
 
   header('Location: ' . $session->getAuthorizeUrl($options));
-  die();
 }
+
+die();
