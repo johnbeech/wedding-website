@@ -4,6 +4,13 @@
       <h2>Hi {{ auth.display_name}}!</h2>
       <p>Please pick some awesome tunes for our party...</p>
       <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
+
+      <div v-for="track in search.results.tracks.items" class="album track">
+        <b class="track name">Track: {{ track.name }}</b>
+        <b class="album name">Album: {{ track.album.name }}</b>
+        <b v-for="artist in track.artists" class="artist name">Artist: {{ artist.name }}</b>
+      </div>
+
       <pre>Results: {{ search.results | pretty }}</pre>
     </div>
 

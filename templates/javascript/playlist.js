@@ -7,7 +7,11 @@ const app = new Vue({
     auth: false,
     searchTerm: '',
     search: {
-      results: []
+      results: {
+        tracks: {
+          items: []
+        }
+      }
     },
     playlist: {
       tracks: []
