@@ -32,7 +32,7 @@ const modes = {
     include: ['**/*.html']
   }),
   'live-text': () => deploy({
-    include: ['**/*.html', '**/*.css', '/**/*.js']
+    include: ['**/*.html', '**/*.css', '/**/*.js', 'content/*.md']
   }),
   'live-images': () => deploy({
     include: ['**/*.png', '**/*.jpg']
