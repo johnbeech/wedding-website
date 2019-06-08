@@ -3,7 +3,7 @@
     <div v-if="auth.display_name">
       <h2>Hi {{ auth.display_name}}!</h2>
       <p>Please pick some awesome tunes for our party...</p>
-      <input type="text" class="search" maxlength="100" name="searchTerm" />
+      <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
       <pre>Results: {{ search.results | pretty }}</pre>
     </div>
 

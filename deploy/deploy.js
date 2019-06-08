@@ -40,6 +40,9 @@ const modes = {
   'live-php': () => deploy({
     include: ['views/*.php']
   }),
+  'live-playlist': () => deploy({
+    include: ['**/playlist*']
+  }),
   'live-vendor-php': () => deploy({
     include: ['vendor/**/*.php']
   })
