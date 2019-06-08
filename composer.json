@@ -1,5 +1,6 @@
 {
     "require": {
-        "michelf/php-markdown": "^1.8"
+        "michelf/php-markdown": "^1.8",
+        "jwilsson/spotify-web-api-php": "^2.6"
     }
 }

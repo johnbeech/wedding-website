@@ -3,3 +3,4 @@ node_modules
 vendor
 composer.phar
 .ftppass
+secrets.config.php
