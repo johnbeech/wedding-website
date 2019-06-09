@@ -24,6 +24,7 @@
     padding: 0 10px;
     min-width: 420px;
     max-width: 860px;
+    font-style: normal;
   }
 
   .playlist.border {
@@ -78,17 +79,43 @@
     vertical-align: middle;
     margin-right: 10px;
   }
+
+  .authorized > h2 {
+    margin: 10px 0;
+    font-size: 40px;
+  }
+
+  input.search {
+    background: #DDD;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 8px 24px 9px;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    outline: none;
+  }
+  input.search:hover {
+    background: #FFF;
+  }
+  input.search:active {
+    background: #EEE;
+  }
 </style>
 
 <div id="playlist" style="display: none;">
   <div class="playlist border">
     <div v-if="auth" class="auth">
-      <div v-if="auth.display_name">
-        <h2>Hi {{ auth.display_name}}!</h2>
-        <p>Please pick some awesome tunes for our party...</p>
+      <div v-if="auth.display_name" class="authorized">
+        <h2><span class="spotify logo"><i class="fab fa-spotify"></i></span> Hey {{ auth.display_name}},</h2>
+        <p>Please pick some awesome tunes for our party!</p>
         <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
 
-        <div v-for="track in search.results.tracks.items" class="album track">
+        <div v-if="advice">
+          <p class="advice">{{ advice }}</p>
+        </div>
+
+        <div v-if="search.results.tracks" v-for="track in search.results.tracks.items" class="album track">
           <p class="track name"><label>Track:</label>{{ track.name }}</p>
           <p class="album name"><label>Album:</label>{{ track.album.name }}</p>
           <p v-for="artist in track.artists" class="artist name"><label>Artist:</label>{{ artist.name }}</p>
@@ -96,8 +123,8 @@
       </div>
 
       <div v-else>
-        <div v-if="auth.advice">
-          <p class="advice">{{ auth.advice }}</p>
+        <div v-if="advice">
+          <p class="advice">{{ advice }}</p>
         </div>
 
         <div class="spotify login">

@@ -4,8 +4,9 @@ const app = new Vue({
   el: '#playlist',
   data: {
     message: 'Hello Spotify!',
-    auth: false,
+    auth: {},
     searchTerm: '',
+    advice: false,
     search: {
       results: {
         tracks: {
@@ -27,7 +28,6 @@ const app = new Vue({
   },
   watch: {
     searchTerm: (nextSearch, prevSearch) => {
-      const now = Date.now()
       if (lastUpdateTimeout) {
         clearTimeout(lastUpdateTimeout)
       }
@@ -39,13 +39,27 @@ const app = new Vue({
 })
 
 function searchFor(text) {
+  if (!text) {
+    return
+  }
+  app.advice = 'Searching...'
   $.getJSON('/views/playlist.php?search=' + text)
     .done(data => {
       app.search.results = data
-    }).fail(( jqxhr, textStatus, error ) => {
-      app.search.results = {
-        error: [textStatus, ', ', error].join('')
+
+      const tracks = app.search.results && app.search.results.tracks
+      const items = tracks.items
+      if (items && items.length === 1) {
+        app.advice = `1 result returned:`
       }
+      else if (items && items.length > 1) {
+        app.advice = `${tracks.items.length} results returned:`
+      }
+      else {
+        app.advice = `No results returned for: "${text}"`
+      }
+    }).fail(( jqxhr, textStatus, error ) => {
+      app.advice = `Unable to contact server: ${textStatus} ${error}`
     })
 }
 
@@ -53,6 +67,7 @@ function getCredentials() {
   $.getJSON('/views/playlist.php?me=1')
     .done(data => {
       app.auth = data
+      app.advice = data.advice
     }).fail(( jqxhr, textStatus, error ) => {
       app.auth = {
         error: [textStatus, ', ', error].join('')
