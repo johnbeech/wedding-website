@@ -1,4 +1,24 @@
 <style>
+
+  #playlist {
+    position: relative;
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    margin: 40px auto;
+    padding: 0 10px;
+    min-width: 350px;
+    max-width: 860px;
+    font-style: normal;
+  }
+
+  .playlist.border {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
   .album.track {
     border: 1px solid black;
     border-radius: 6px;
@@ -59,25 +79,6 @@
     margin-right: 5px;
   }
 
-  #playlist {
-    position: relative;
-    font-family: Circular, Helvetica, Arial, sans-serif;
-    margin: 40px auto;
-    padding: 0 10px;
-    min-width: 420px;
-    max-width: 860px;
-    font-style: normal;
-  }
-
-  .playlist.border {
-    position: relative;
-    display: block;
-    margin: 0 auto;
-    border: 1px solid rgba(0,0,0,0.4);
-    border-radius: 15px;
-    padding: 20px;
-  }
-
   button.connect.with.spotify {
     color: white;
     background: #1DB954;
@@ -104,6 +105,7 @@
     display: inline-block;
     vertical-align: middle;
     outline: none;
+    white-space: nowrap;
   }
 
   button.connect.with.spotify:hover {
