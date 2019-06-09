@@ -3,16 +3,35 @@
     border: 1px solid black;
     border-radius: 6px;
     margin: 5px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .album.art {
+    flex: 1 1 0;
+    border: none;
+    text-align: left;
+    margin: 4px;
   }
   .track.name {
-
+    flex: 4 4 0;
+    text-align: left;
+    margin: 4px;
   }
   .album.name {
-
+    flex: 4 4 0;
+    text-align: left;
+    margin: 4px;
   }
   .artist.name {
-
+    flex: 4 4 0;
+    text-align: left;
+    margin: 4px;
   }
+
   .name > label {
     margin-right: 5px;
   }
@@ -116,18 +135,19 @@
         </div>
 
         <div v-if="search.results.tracks" class="album track header">
-          <span class="track name">Art</span>
-          <span class="track name">Track Name</span>
-          <span class="album name">Album Name</span>
-          <span class="artist name">Artist Name</span>
+          <span class="album art">Art</span>
+          <span class="track name">Track</span>
+          <span class="album name">Album</span>
+          <span class="artist name">Artist</span>
         </div>
 
         <div v-if="search.results.tracks" v-for="track in search.results.tracks.items" class="album track">
-          <span class="album art"><img :src="track.artUrl" alt="Album art" /></span>
-          <span class="track name">{{ track.name }}</span>
+          <img :src="track.artUrl" alt="Album art" class="album art" />
           <span class="track name">{{ track.name }}</span>
           <span class="album name">{{ track.album.name }}</span>
-          <span v-for="artist in track.artists" class="artist name">{{ artist.name }}</span>
+          <span class="artist name">
+            <p v-for="artist in track.artists">{{ artist.name }}</p>
+          </span>
         </div>
       </div>
 
