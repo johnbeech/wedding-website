@@ -35,6 +35,7 @@ $requestUri = $_SERVER['REQUEST_URI'];
 
 $path = join(array_filter(explode('/', $requestUri)), '/');
 $path = $path ? $path : 'home';
+$path = explode('?', $path)[0];
 
 $templateHTML = @file_get_contents('../template.html');
 $contentMD = @file_get_contents('../content/' . $path . '.md');
