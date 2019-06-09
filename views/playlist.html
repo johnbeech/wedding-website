@@ -16,39 +16,100 @@
   .name > label {
     margin-right: 5px;
   }
+
+  #playlist {
+    position: relative;
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    margin: 40px auto;
+    padding: 0 10px;
+    min-width: 420px;
+    max-width: 860px;
+  }
+
+  .playlist.border {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  button.connect.with.spotify {
+    color: white;
+    background: #1DB954;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 16px 48px 18px;
+    transition-duration: .3s;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    transition-property: background-color, border-color, color, box-shadow, filter, -webkit-box-shadow, -webkit-filter;
+    margin-bottom: 0;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    user-select: none;
+    display: inline-block;
+    vertical-align: middle;
+    outline: none;
+  }
+
+  button.connect.with.spotify:hover {
+    background: #1ED760;
+  }
+
+  button.connect.with.spotify:active {
+    background: #1DB954;
+  }
+
+  .spotify.logo {
+    font-size: 48px;
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
 </style>
 
 <div id="playlist" style="display: none;">
-  <div v-if="auth" class="auth">
-    <div v-if="auth.display_name">
-      <h2>Hi {{ auth.display_name}}!</h2>
-      <p>Please pick some awesome tunes for our party...</p>
-      <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
+  <div class="playlist border">
+    <div v-if="auth" class="auth">
+      <div v-if="auth.display_name">
+        <h2>Hi {{ auth.display_name}}!</h2>
+        <p>Please pick some awesome tunes for our party...</p>
+        <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
 
-      <div v-for="track in search.results.tracks.items" class="album track">
-        <p class="track name"><label>Track:</label>{{ track.name }}</p>
-        <p class="album name"><label>Album:</label>{{ track.album.name }}</p>
-        <p v-for="artist in track.artists" class="artist name"><label>Artist:</label>{{ artist.name }}</p>
+        <div v-for="track in search.results.tracks.items" class="album track">
+          <p class="track name"><label>Track:</label>{{ track.name }}</p>
+          <p class="album name"><label>Album:</label>{{ track.album.name }}</p>
+          <p v-for="artist in track.artists" class="artist name"><label>Artist:</label>{{ artist.name }}</p>
+        </div>
       </div>
 
-      <pre>Results: {{ search.results | pretty }}</pre>
+      <div v-else>
+        <div v-if="auth.advice">
+          <p class="advice">{{ auth.advice }}</p>
+        </div>
+
+        <div class="spotify login">
+          <span class="spotify logo"><i class="fab fa-spotify"></i></span>
+          <button class="connect with spotify" v-on:click="connectWithSpotify">Connect with Spotify</button>
+        </div>
+      </div>
     </div>
 
-    <div v-if="auth.message">
-      <p class="message">{{ auth.message }}</p>
+    <div v-if="playlist.tracks">
+      <pre style="display: none;">Tracks: {{ playlist.tracks | pretty }}</pre>
     </div>
-
-    <div v-if="auth.advice">
-      <p class="advice">{{ auth.advice }}</p>
-    </div>
-
-    <div v-if="auth.error">
-      <p class="error">{{ auth.error }}</p>
-    </div>
-  </div>
-
-  <div v-if="playlist.tracks">
-    <pre>Tracks: {{ playlist.tracks | pretty }}</pre>
   </div>
 </div>
 

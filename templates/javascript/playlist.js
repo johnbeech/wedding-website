@@ -17,6 +17,11 @@ const app = new Vue({
       tracks: []
     }
   },
+  methods: {
+    connectWithSpotify: (event) => {
+      document.location = '/views/playlist.php'
+    }
+  },
   filters: {
     pretty: (data) => JSON.stringify(data, null, 2)
   },

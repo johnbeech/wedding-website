@@ -40,7 +40,7 @@ if (isset($_GET['code'])) {
   $session->requestAccessToken($_GET['code']);
   $_SESSION['accessToken'] = $session->getAccessToken();
   $_SESSION['refreshToken'] = $session->getRefreshToken();
-  header('Location: ' . $SPOTIFY_CLIENT_URL);
+  header('Location: /playlist');
   die();
 }
 
@@ -71,7 +71,8 @@ if(isset($_SESSION['accessToken'])) {
     output(array(
       'message' => 'Not authorized',
       'detail' => $ex->getMessage(),
-      'error' => true
+      'error' => true,
+      'authorized' => false
     ));
     session_destroy();
   }
@@ -84,7 +85,6 @@ if (isset($_GET['me'])) {
   output(array(
     'message' => 'Not authorized',
     'advice' => 'Please log in to Spotify and accept permission to access the playlist',
-    'detail' => $ex->getMessage(),
     'error' => true,
     'authorized' => false
   ));
