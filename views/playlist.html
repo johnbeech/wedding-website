@@ -37,7 +37,7 @@
     margin: 4px;
     min-width: 64px;
   }
-  .track.name {
+  .artist.name, .added-by.name, .album.name, .track.name {
     flex: 4 4 0;
     text-align: left;
     margin: 4px;
@@ -45,21 +45,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .album.name {
-    flex: 4 4 0;
-    text-align: left;
-    margin: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .artist.name {
-    flex: 4 4 0;
-    text-align: left;
-    margin: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .added-by.name {
+    text-align: right;
   }
   .add.track {
     flex: 1 1 0;
@@ -191,7 +178,7 @@
           <p class="advice">{{ advice }}</p>
         </div>
 
-        <div v-if="search.results.tracks" class="album track header">
+        <div v-if="search.results.tracks && search.results.tracks.length" class="album track header">
           <span class="album art">Art</span>
           <span class="track name">Track</span>
           <span class="album name">Album</span>
@@ -210,6 +197,25 @@
         </div>
 
         <div class="search results end"></div>
+
+        <h3>Our playlist so far...</h3>
+
+        <div v-if="search.results.tracks" class="album track header">
+          <span class="album art">Art</span>
+          <span class="track name">Track</span>
+          <span class="artist name">Artist</span>
+          <span class="added-by name">Added by</span>
+        </div>
+
+        <div v-if="playlist.items" v-for="item in playlist.items" class="album track">
+          <img :src="item.track.artUrl" alt="Album art" class="album art" />
+          <span class="track name">{{ item.track.name }}</span>
+          <span class="artist name">
+            <p v-for="artist in item.track.artists">{{ artist.name }}</p>
+          </span>
+          <span class="added-by name">{{ item.added_by.id }}</span>
+        </div>
+
       </div>
 
       <div v-else>

@@ -15,7 +15,7 @@ const app = new Vue({
       }
     },
     playlist: {
-      tracks: []
+      items: []
     }
   },
   methods: {
@@ -48,7 +48,6 @@ function searchFor(text) {
   app.advice = 'Searching...'
   $.getJSON('/views/playlist.php?search=' + text)
     .done(data => {
-
       const tracks = data.tracks
       const items = tracks.items
       if (items && items.length === 1) {
@@ -61,7 +60,7 @@ function searchFor(text) {
         app.advice = `No results returned for: "${text}"`
       }
 
-      tracks.items.forEach(track => {
+      items.forEach(track => {
         track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
       })
 
@@ -71,11 +70,26 @@ function searchFor(text) {
     })
 }
 
+function getPlaylistTracks() {
+  $.getJSON('/views/playlist.php?playlist=5R5M56FezDVaAQGGtataHy')
+    .done(data => {
+      const playlist = data
+      const items = playlist.items
+
+      items.forEach(item => {
+        const track = item.track
+        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+      })
+      app.playlist = playlist
+    })
+}
+
 function getCredentials() {
   $.getJSON('/views/playlist.php?me=1')
     .done(data => {
       app.auth = data
       app.advice = data.advice
+      getPlaylistTracks()
     }).fail(( jqxhr, textStatus, error ) => {
       app.auth = {
         error: [textStatus, ', ', error].join('')

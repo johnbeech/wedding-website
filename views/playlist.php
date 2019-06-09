@@ -55,9 +55,12 @@ if(isset($_SESSION['accessToken'])) {
     $api->setAccessToken($_SESSION['accessToken']);
 
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : false;
+    $playlist = isset($_GET['playlist']) ? $_GET['playlist'] : false;
 
     if ($searchTerm) {
       output($api->search($searchTerm, 'track'));
+    } else if($playlist) {
+      output($api->getPlaylistTracks($playlist));
     } else {
       output($api->me());
     }
