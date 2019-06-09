@@ -21,6 +21,9 @@ const app = new Vue({
   methods: {
     connectWithSpotify: (event) => {
       document.location = '/views/playlist.php'
+    },
+    addTrack: (trackId) => {
+      console.log('TODO: Add track to playlist', trackId)
     }
   },
   filters: {

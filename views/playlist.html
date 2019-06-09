@@ -31,6 +31,29 @@
     text-align: left;
     margin: 4px;
   }
+  .add.track {
+    flex: 1 1 0;
+    text-center: left;
+    margin: 4px;
+    font-size: 18px;
+  }
+  .add.track > button {
+    color: white;
+    background: #1DB954;
+    transition-property: background-color, border-color, color, box-shadow, filter, -webkit-box-shadow, -webkit-filter;
+    transition-duration: .3s;
+    outline: none;
+    border: 1px solid transparent;
+    font-size: 18px;
+    padding: 10px 13px 9px 13px;
+    border-radius: 500px;
+  }
+  .add.track > button:hover {
+    background: #1ED760;
+  }
+  .add.track > button:active {
+    background: #1DB954;
+  }
 
   .name > label {
     margin-right: 5px;
@@ -62,13 +85,13 @@
     line-height: 1;
     border-radius: 500px;
     padding: 16px 48px 18px;
-    transition-duration: .3s;
     border-width: 0;
     letter-spacing: 2px;
     min-width: 160px;
     text-transform: uppercase;
     white-space: normal;
     transition-property: background-color, border-color, color, box-shadow, filter, -webkit-box-shadow, -webkit-filter;
+    transition-duration: .3s;
     margin-bottom: 0;
     font-weight: bold;
     text-align: center;
@@ -139,6 +162,7 @@
           <span class="track name">Track</span>
           <span class="album name">Album</span>
           <span class="artist name">Artist</span>
+          <span class="add track"><i class="fas fa-music"></i></span>
         </div>
 
         <div v-if="search.results.tracks" v-for="track in search.results.tracks.items" class="album track">
@@ -148,6 +172,7 @@
           <span class="artist name">
             <p v-for="artist in track.artists">{{ artist.name }}</p>
           </span>
+          <span class="add track"><button v-on:click="addTrack(track.id)" title="Add track"><i class="fas fa-plus"></i></button></span>
         </div>
       </div>
 
