@@ -56,11 +56,15 @@ if(isset($_SESSION['accessToken'])) {
 
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : false;
     $playlist = isset($_GET['playlist']) ? $_GET['playlist'] : false;
+    $trackToAdd = isset($_GET['addTrack']) ? $_GET['addTrack'] : false;
 
     if ($searchTerm) {
       output($api->search($searchTerm, 'track'));
     } else if($playlist) {
       output($api->getPlaylistTracks($playlist));
+    } else if($trackToAdd) {
+      $playlist = isset($_GET['to']) ? $_GET['to'] : false;
+      output($api->addPlaylistTracks($playlist, array($trackToAdd)));
     } else {
       output($api->me());
     }
@@ -99,6 +103,7 @@ if (isset($_GET['me'])) {
 $authorizationOptions = [
   'scope' => [
     'user-read-email',
+    'playlist-modify'
   ]
 ];
 

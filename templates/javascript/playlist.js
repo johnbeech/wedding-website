@@ -84,6 +84,20 @@ function getPlaylistTracks() {
     })
 }
 
+function addTrackToPlaylist(trackId) {
+  $.getJSON('/views/playlist.php?addTrack=' + trackId + '&to=' + '5R5M56FezDVaAQGGtataHy')
+    .done(data => {
+      const playlist = data
+      const items = playlist.items
+
+      items.forEach(item => {
+        const track = item.track
+        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+      })
+      app.playlist = playlist
+    })
+}
+
 function getCredentials() {
   $.getJSON('/views/playlist.php?me=1')
     .done(data => {
