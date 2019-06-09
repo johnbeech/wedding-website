@@ -115,10 +115,19 @@
           <p class="advice">{{ advice }}</p>
         </div>
 
+        <div v-if="search.results.tracks" class="album track header">
+          <span class="track name">Art</span>
+          <span class="track name">Track Name</span>
+          <span class="album name">Album Name</span>
+          <span class="artist name">Artist Name</span>
+        </div>
+
         <div v-if="search.results.tracks" v-for="track in search.results.tracks.items" class="album track">
-          <p class="track name"><label>Track:</label>{{ track.name }}</p>
-          <p class="album name"><label>Album:</label>{{ track.album.name }}</p>
-          <p v-for="artist in track.artists" class="artist name"><label>Artist:</label>{{ artist.name }}</p>
+          <span class="album art"><img :src="track.artUrl" alt="Album art" /></span>
+          <span class="track name">{{ track.name }}</span>
+          <span class="track name">{{ track.name }}</span>
+          <span class="album name">{{ track.album.name }}</span>
+          <span v-for="artist in track.artists" class="artist name">{{ artist.name }}</span>
         </div>
       </div>
 

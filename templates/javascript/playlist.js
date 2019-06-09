@@ -45,9 +45,8 @@ function searchFor(text) {
   app.advice = 'Searching...'
   $.getJSON('/views/playlist.php?search=' + text)
     .done(data => {
-      app.search.results = data
 
-      const tracks = app.search.results && app.search.results.tracks
+      const tracks = data.tracks
       const items = tracks.items
       if (items && items.length === 1) {
         app.advice = `1 result returned:`
@@ -58,6 +57,12 @@ function searchFor(text) {
       else {
         app.advice = `No results returned for: "${text}"`
       }
+
+      tracks.items.forEach(track => {
+        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+      })
+
+      app.search.results = data
     }).fail(( jqxhr, textStatus, error ) => {
       app.advice = `Unable to contact server: ${textStatus} ${error}`
     })
