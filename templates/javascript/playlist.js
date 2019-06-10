@@ -10,12 +10,12 @@ const app = new Vue({
     search: {
       results: {
         tracks: {
-          items: []
+          items: false
         }
       }
     },
     playlist: {
-      items: []
+      items: false
     }
   },
   methods: {
@@ -23,7 +23,8 @@ const app = new Vue({
       document.location = '/views/playlist.php'
     },
     addTrack: (trackId) => {
-      console.log('TODO: Add track to playlist', trackId)
+      console.log('Request track be added to playlist', trackId)
+      requestTrackForPlaylist(trackId)
     }
   },
   filters: {
@@ -74,7 +75,21 @@ function getPlaylistTracks() {
   $.getJSON('/views/playlist.php?playlist=5R5M56FezDVaAQGGtataHy')
     .done(data => {
       const playlist = data
-      const items = playlist.items
+      const items = playlist.items || []
+
+      items.forEach(item => {
+        const track = item.track
+        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+      })
+      app.playlist = playlist
+    })
+}
+
+function requestTrackForPlaylist(trackId) {
+  $.getJSON('/views/playlist.php?requestTrack=' + trackId + '&for=' + '5R5M56FezDVaAQGGtataHy')
+    .done(data => {
+      const playlist = data
+      const items = playlist.items || []
 
       items.forEach(item => {
         const track = item.track
@@ -85,10 +100,11 @@ function getPlaylistTracks() {
 }
 
 function addTrackToPlaylist(trackId) {
+  // only works for tracklist owner
   $.getJSON('/views/playlist.php?addTrack=' + trackId + '&to=' + '5R5M56FezDVaAQGGtataHy')
     .done(data => {
       const playlist = data
-      const items = playlist.items
+      const items = playlist.items || []
 
       items.forEach(item => {
         const track = item.track
