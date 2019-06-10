@@ -32,13 +32,16 @@ const modes = {
     include: ['**/*.html']
   }),
   'live-text': () => deploy({
-    include: ['**/*.html', '**/*.css', '/**/*.js']
+    include: ['**/*.html', '**/*.css', '**/*.js', 'content/*.md']
   }),
   'live-images': () => deploy({
     include: ['**/*.png', '**/*.jpg']
   }),
   'live-php': () => deploy({
     include: ['views/*.php']
+  }),
+  'live-playlist': () => deploy({
+    include: ['**/playlist*']
   }),
   'live-vendor-php': () => deploy({
     include: ['vendor/**/*.php']

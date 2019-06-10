@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 function fatal_handler() {
   global $path;
   $error = error_get_last();
@@ -33,6 +35,7 @@ $requestUri = $_SERVER['REQUEST_URI'];
 
 $path = join(array_filter(explode('/', $requestUri)), '/');
 $path = $path ? $path : 'home';
+$path = explode('?', $path)[0];
 
 $templateHTML = @file_get_contents('../template.html');
 $contentMD = @file_get_contents('../content/' . $path . '.md');
@@ -42,6 +45,12 @@ preg_match_all('/```background: (.*)```/msi', $contentMD, $matches);
 $backgroundImage = count($matches[1]) ? $matches[1][0] : '/images/404.jpg';
 $contentMD = preg_replace('/```background: .*```/', '', $contentMD);
 $contentMD = str_replace('{{location}}', $path, $contentMD);
+
+
+preg_match_all('/```embed: (.*)```/msi', $contentMD, $matches);
+$embedContent = count($matches[1]) ? $matches[1][0] : 'embed-not-found.html';
+$embeddableContent = @file_get_contents($embedContent, true);
+$contentMD = preg_replace('/```embed: .*```/', $embeddableContent, $contentMD);
 
 $contentHTML = renderIconsAsHTML(Markdown::defaultTransform($contentMD));
 preg_match_all('/<h1.*?>(.*)<\/h1>/msi', $contentHTML, $titles);

@@ -1,0 +1,239 @@
+<style>
+
+  #playlist {
+    position: relative;
+    font-family: Circular, Helvetica, Arial, sans-serif;
+    margin: 40px auto;
+    padding: 0 10px;
+    min-width: 350px;
+    max-width: 860px;
+    font-style: normal;
+  }
+
+  .playlist.border {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .album.track {
+    border: 1px solid black;
+    border-radius: 6px;
+    margin: 5px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .album.art {
+    flex: 1 1 0;
+    border: none;
+    text-align: left;
+    margin: 4px;
+    min-width: 64px;
+  }
+  .artist.name, .added-by.name, .album.name, .track.name {
+    flex: 4 4 0;
+    text-align: left;
+    margin: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .added-by.name {
+    text-align: right;
+  }
+  .add.track {
+    flex: 1 1 0;
+    text-center: left;
+    margin: 4px;
+    font-size: 18px;
+  }
+  .add.track > button {
+    color: white;
+    background: #1DB954;
+    transition-property: background-color, border-color, color, box-shadow, filter, -webkit-box-shadow, -webkit-filter;
+    transition-duration: .3s;
+    outline: none;
+    border: 1px solid transparent;
+    font-size: 18px;
+    padding: 10px 13px 9px 13px;
+    border-radius: 500px;
+  }
+  .add.track > button:hover {
+    background: #1ED760;
+  }
+  .add.track > button:active {
+    background: #1DB954;
+  }
+
+  .name > label {
+    margin-right: 5px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    #playlist {
+      padding: 0;
+    }
+    .playlist.border {
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+    .album.track {
+      border-radius: 0;
+      margin: 0;
+    }
+    .album.name {
+      display: none;
+    }
+    .search.results.end {
+      border-top: 3px solid black;
+    }
+  }
+
+  button.connect.with.spotify {
+    color: white;
+    background: #1DB954;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 16px 48px 18px;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    transition-property: background-color, border-color, color, box-shadow, filter, -webkit-box-shadow, -webkit-filter;
+    transition-duration: .3s;
+    margin-bottom: 0;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    user-select: none;
+    display: inline-block;
+    vertical-align: middle;
+    outline: none;
+    white-space: nowrap;
+  }
+
+  button.connect.with.spotify:hover {
+    background: #1ED760;
+  }
+
+  button.connect.with.spotify:active {
+    background: #1DB954;
+  }
+
+  .spotify.logo {
+    font-size: 48px;
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  .authorized > h2 {
+    margin: 10px 0;
+    font-size: 40px;
+  }
+
+  input.search {
+    background: #DDD;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 8px 24px 9px;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    outline: none;
+    margin: 0 0 15px 0;
+  }
+  input.search:hover {
+    background: #FFF;
+  }
+  input.search:active {
+    background: #EEE;
+  }
+</style>
+
+<div id="playlist" style="display: none;">
+  <div class="playlist border">
+    <div v-if="auth" class="auth">
+      <div v-if="auth.display_name" class="authorized">
+        <h2><span class="spotify logo"><i class="fab fa-spotify"></i></span> Hey {{ auth.display_name}},</h2>
+        <p>Please pick some awesome tunes for our party!</p>
+        <input type="text" class="search" maxlength="100" name="searchTerm" v-model="searchTerm" />
+
+        <div v-if="advice">
+          <p class="advice">{{ advice }}</p>
+        </div>
+
+        <div v-if="search.results.tracks" class="album track header">
+          <span class="album art">Art</span>
+          <span class="track name">Track</span>
+          <span class="album name">Album</span>
+          <span class="artist name">Artist</span>
+          <span class="add track"><i class="fas fa-music"></i></span>
+        </div>
+
+        <div v-if="search.results.tracks" v-for="track in search.results.tracks.items" class="album track">
+          <img :src="track.artUrl" alt="Album art" class="album art" />
+          <span class="track name">{{ track.name }}</span>
+          <span class="album name">{{ track.album.name }}</span>
+          <span class="artist name">
+            <p v-for="artist in track.artists">{{ artist.name }}</p>
+          </span>
+          <span class="add track"><button v-on:click="addTrack(track.id)" title="Add track"><i class="fas fa-plus"></i></button></span>
+        </div>
+
+        <div class="search results end"></div>
+
+        <h3>Our playlist so far...</h3>
+
+        <div v-if="search.results.tracks" class="album track header">
+          <span class="album art">Art</span>
+          <span class="track name">Track</span>
+          <span class="artist name">Artist</span>
+          <span class="added-by name">Added by</span>
+        </div>
+
+        <div v-if="playlist.items" v-for="item in playlist.items" class="album track">
+          <img :src="item.track.artUrl" alt="Album art" class="album art" />
+          <span class="track name">{{ item.track.name }}</span>
+          <span class="artist name">
+            <p v-for="artist in item.track.artists">{{ artist.name }}</p>
+          </span>
+          <span class="added-by name">{{ item.added_by.id }}</span>
+        </div>
+
+      </div>
+
+      <div v-else>
+        <div v-if="advice">
+          <p class="advice">{{ advice }}</p>
+        </div>
+
+        <div class="spotify login">
+          <span class="spotify logo"><i class="fab fa-spotify"></i></span>
+          <button class="connect with spotify" v-on:click="connectWithSpotify">Connect with Spotify</button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="playlist.tracks">
+      <pre style="display: none;">Tracks: {{ playlist.tracks | pretty }}</pre>
+    </div>
+  </div>
+</div>
+
+<script src="/javascript/playlist.js"></script>
