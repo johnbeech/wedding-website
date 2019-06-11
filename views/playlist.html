@@ -188,7 +188,7 @@
           <p class="advice">{{ advice }}</p>
         </div>
 
-        <div v-if="search.results.tracks" class="album track header">
+        <div v-if="search.results.tracks && search.results.tracks.items && search.results.tracks.items.length" class="album track header">
           <span class="album art">Art</span>
           <span class="track name">Track</span>
           <span class="album name">Album</span>
@@ -196,7 +196,7 @@
           <span class="add track"><i class="fas fa-music"></i></span>
         </div>
 
-        <div v-if="search.results.tracks" v-for="track in search.results.tracks.items" class="album track">
+        <div v-if="search.results.tracks && search.results.tracks.items && search.results.tracks.items.length" v-for="track in search.results.tracks.items" class="album track">
           <img :src="track.artUrl" alt="Album art" class="album art" />
           <span class="track name">{{ track.name }}</span>
           <span class="album name">{{ track.album.name }}</span>
@@ -228,6 +228,8 @@
           <span class="added-by name">{{ item.added_by.display_name || item.added_by.id }}</span>
           <span class="remove track" v-if="item.requestedByCurrentUser" title="Remove this track request D:"><button v-on:click="removeTrack(item.track.id)" title="Remove track request"><i class="fas fa-fire"></i></button></span>
         </div>
+
+        <div class="search results end"></div>
 
       </div>
 
