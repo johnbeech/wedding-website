@@ -125,12 +125,30 @@ function getPlaylistTracks() {
 }
 
 function requestTrackForPlaylist(trackId) {
+  try {
+    let items =  app.search.results.tracks.items
+    items = items.filter(track => track.id === trackId)
+    items.forEach(n => {
+      n.inPlaylist = true
+    })
+    app.search.results.tracks.items = items
+  }
+  catch(ex) {
+    // ok, that didn't work...
+  }
+  app.advice = `Adding your track request to our play list...`
+
   $.getJSON('/views/playlist.php?requestTrack=' + trackId + '&for=' + '5R5M56FezDVaAQGGtataHy')
     .done(data => {
       const events = data
       mergeEventsWithPlaylist({ events })
       try {
-        app.search.results.tracks.items = app.search.results.tracks.items.filter(item => item.track.id === trackId)
+        let items =  app.search.results.tracks.items
+        items = items.filter(track => track.id === trackId)
+        items.forEach(n => {
+          n.inPlaylist = true
+        })
+        app.search.results.tracks.items = items
       }
       catch(ex) {
         // ok, that didn't work...
