@@ -21,6 +21,22 @@ function output($data) {
   echo json_encode($data);
 }
 
+function writeEvent($playlistId, $event) {
+  $filepath = dirname(__FILE__) . '/database/' . $playlistId . '.dat';
+  $events = readEvents($playlistId);
+  $events[] = $event;
+  $contents = serialize($events);
+  file_put_contents($filepath, $contents, LOCK_EX);
+  return $events;
+}
+
+function readEvents($playlistId) {
+  $filepath = dirname(__FILE__) . '/database/' . $playlistId . '.dat';
+  $events = @unserialize(@file_get_contents($filepath));
+  $events = $events ? $events : array();
+  return $events;
+}
+
 // Check for session logout
 
 if(isset($_GET['logout'])) {
@@ -56,14 +72,25 @@ if(isset($_SESSION['accessToken'])) {
 
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : false;
     $playlist = isset($_GET['playlist']) ? $_GET['playlist'] : false;
-    $trackToAdd = isset($_GET['addTrack']) ? $_GET['addTrack'] : false;
+    $trackToRequest = isset($_GET['requestTrack']) ? $_GET['requestTrack'] : false;
+    $trackToRemove = isset($_GET['removeTrackRequest']) ? $_GET['removeTrackRequest'] : false;
 
     if ($searchTerm) {
       output($api->search($searchTerm, 'track'));
     } else if($playlist) {
       output($api->getPlaylistTracks($playlist));
-    } else if($trackToAdd) {
-      $playlist = isset($_GET['to']) ? $_GET['to'] : false;
+    } else if($trackToRequest) {
+      $playlist = isset($_GET['for']) ? $_GET['for'] : 'no-playlist-id';
+      $trackData = $api->getTrack($trackToRequest);
+      $event = array('requestTrack' => $trackData, 'user' => $api->me(), 'datetime' => date('c'));
+      $events = writeEvent($playlist, $event);
+      output($events);
+    } else if($trackToRemove) {
+      $playlist = isset($_GET['for']) ? $_GET['for'] : 'no-playlist-id';
+      $event = array('removeTrackRequest' => $trackToRemove, 'user' => $api->me(), 'datetime' => date('c'));
+      $events = writeEvent($playlist, $event);
+      output($events);
+    } else if($playlistOwnerAddAllTracks) {
       output($api->addPlaylistTracks($playlist, array($trackToAdd)));
     } else {
       output($api->me());

@@ -38,7 +38,7 @@ const modes = {
     include: ['**/*.png', '**/*.jpg']
   }),
   'live-php': () => deploy({
-    include: ['views/*.php']
+    include: ['views/**/*.php']
   }),
   'live-playlist': () => deploy({
     include: ['**/playlist*']
