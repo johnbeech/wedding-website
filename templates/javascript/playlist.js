@@ -26,6 +26,10 @@ const app = new Vue({
     addTrack: (trackId) => {
       console.log('Request track be added to playlist', trackId)
       requestTrackForPlaylist(trackId)
+    },
+    removeTrack: (trackId) => {
+      console.log('Request track be removed from playlist', trackId)
+      removeTrackRequestForPlaylist(trackId)
     }
   },
   filters: {
@@ -110,6 +114,7 @@ function mergeEventsWithPlaylist({ playlist, events }) {
   items.forEach(item => {
     const track = item.track
     track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+    item.requestedByCurrentUser = item.added_by.id === app.auth.id
   })
 
   playlist.items = items

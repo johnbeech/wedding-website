@@ -48,13 +48,13 @@
   .added-by.name {
     text-align: right;
   }
-  .add.track {
+  .add.track, .remove.track {
     flex: 1 1 0;
     text-center: left;
     margin: 4px;
     font-size: 18px;
   }
-  .add.track > button {
+  .add.track > button, .remove.track > button {
     color: white;
     background: #1DB954;
     transition-property: background-color, border-color, color, box-shadow, filter, -webkit-box-shadow, -webkit-filter;
@@ -70,6 +70,16 @@
   }
   .add.track > button:active {
     background: #1DB954;
+  }
+  .remove.track > button {
+    color: white;
+    background: #2d46b9;
+  }
+  .remove.track > button:hover {
+    background: #222326;
+  }
+  .remove.track > button:active {
+    background: #2d46b9;
   }
 
   .name > label {
@@ -193,7 +203,7 @@
           <span class="artist name">
             <p v-for="artist in track.artists">{{ artist.name }}</p>
           </span>
-          <span class="add track" v-if="!track.inPlaylist" title="Add this track to our playlist!"><button v-on:click="addTrack(track.id)" title="Add track"><i class="fas fa-plus"></i></button></span>
+          <span class="add track" v-if="!track.inPlaylist" title="Add this track to our playlist!"><button v-on:click="addTrack(track.id)" title="Request track"><i class="fas fa-plus"></i></button></span>
           <span class="add track" v-else title="Already added to playlist!"><i class="fas fa-heart"></i></span>
         </div>
 
@@ -206,6 +216,7 @@
           <span class="track name">Track</span>
           <span class="artist name">Artist</span>
           <span class="added-by name">Added by</span>
+          <span class="add track"><i class="fas fa-music"></i></span>
         </div>
 
         <div v-if="playlist.items" v-for="item in playlist.items" class="album track">
@@ -215,6 +226,7 @@
             <p v-for="artist in item.track.artists">{{ artist.name }}</p>
           </span>
           <span class="added-by name">{{ item.added_by.display_name || item.added_by.id }}</span>
+          <span class="remove track" v-if="item.requestedByCurrentUser" title="Remove this track request D:"><button v-on:click="removeTrack(item.track.id)" title="Remove track request"><i class="fas fa-fire"></i></button></span>
         </div>
 
       </div>
