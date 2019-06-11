@@ -16,7 +16,8 @@ const app = new Vue({
     },
     playlist: {
       items: false
-    }
+    },
+    dupes: {}
   },
   methods: {
     connectWithSpotify: (event) => {
@@ -63,6 +64,7 @@ function searchFor(text) {
 
       items.forEach(track => {
         track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+        track.inPlaylist = app.dupes[track.id] ? true : false
       })
 
       app.search.results = data
@@ -71,31 +73,77 @@ function searchFor(text) {
     })
 }
 
+function mergeEventsWithPlaylist({ playlist, events }) {
+  events = events || []
+  playlist = playlist || {}
+  let items = playlist.items || app.playlist.items || []
+
+  // process events
+  events.forEach(event => {
+    if (event.requestTrack) {
+      const item = {
+        track: event.requestTrack,
+        added_at: event.datetime,
+        added_by: event.user
+      }
+      items.push(item)
+    }
+    if (event.removeTrackRequest) {
+      items = items.filter(n => n.track.id !== event.removeTrackRequest)
+    }
+  })
+
+  // dedupe
+  app.dupes = {}
+  items = items.filter(item => {
+    const track = item.track
+    if (app.dupes[track.id]) {
+      // filter out dupes
+      return false
+    }
+    app.dupes[track.id] = track
+    // keep uniques
+    return true
+  })
+
+  // add artwork
+  items.forEach(item => {
+    const track = item.track
+    track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
+  })
+
+  playlist.items = items
+  app.playlist = playlist
+}
+
 function getPlaylistTracks() {
   $.getJSON('/views/playlist.php?playlist=5R5M56FezDVaAQGGtataHy')
     .done(data => {
-      const playlist = data
-      const items = playlist.items || []
-
-      items.forEach(item => {
-        const track = item.track
-        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
-      })
-      app.playlist = playlist
+      const { playlist, events } = data
+      mergeEventsWithPlaylist({ playlist, events })
     })
 }
 
 function requestTrackForPlaylist(trackId) {
   $.getJSON('/views/playlist.php?requestTrack=' + trackId + '&for=' + '5R5M56FezDVaAQGGtataHy')
     .done(data => {
-      const playlist = data
-      const items = playlist.items || []
+      const events = data
+      mergeEventsWithPlaylist({ events })
+      try {
+        app.search.results.tracks.items = app.search.results.tracks.items.filter(item => item.track.id === trackId)
+      }
+      catch(ex) {
+        // ok, that didn't work...
+      }
+      app.advice = `Thank you! Added your track request to our play list :)`
+    })
+}
 
-      items.forEach(item => {
-        const track = item.track
-        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
-      })
-      app.playlist = playlist
+function removeTrackRequestForPlaylist(trackId) {
+  $.getJSON('/views/playlist.php?removeTrackRequest=' + trackId + '&for=' + '5R5M56FezDVaAQGGtataHy')
+    .done(data => {
+      const events = data
+      mergeEventsWithPlaylist({ events })
     })
 }
 
@@ -104,13 +152,7 @@ function addTrackToPlaylist(trackId) {
   $.getJSON('/views/playlist.php?addTrack=' + trackId + '&to=' + '5R5M56FezDVaAQGGtataHy')
     .done(data => {
       const playlist = data
-      const items = playlist.items || []
-
-      items.forEach(item => {
-        const track = item.track
-        track.artUrl = (track.album.images.filter(n => n.width === 64)[0] || {}).url
-      })
-      app.playlist = playlist
+      mergeEventsWithPlaylist({ playlist })
     })
 }
 

@@ -193,7 +193,8 @@
           <span class="artist name">
             <p v-for="artist in track.artists">{{ artist.name }}</p>
           </span>
-          <span class="add track"><button v-on:click="addTrack(track.id)" title="Add track"><i class="fas fa-plus"></i></button></span>
+          <span class="add track" v-if="!track.inPlaylist" title="Add this track to our playlist!"><button v-on:click="addTrack(track.id)" title="Add track"><i class="fas fa-plus"></i></button></span>
+          <span class="add track" v-else title="Already added to playlist!"><i class="fas fa-heart"></i></span>
         </div>
 
         <div class="search results end"></div>
@@ -213,7 +214,7 @@
           <span class="artist name">
             <p v-for="artist in item.track.artists">{{ artist.name }}</p>
           </span>
-          <span class="added-by name">{{ item.added_by.id }}</span>
+          <span class="added-by name">{{ item.added_by.display_name || item.added_by.id }}</span>
         </div>
 
       </div>

@@ -71,14 +71,18 @@ if(isset($_SESSION['accessToken'])) {
     $api->setAccessToken($_SESSION['accessToken']);
 
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : false;
-    $playlist = isset($_GET['playlist']) ? $_GET['playlist'] : false;
+    $playlistId = isset($_GET['playlist']) ? $_GET['playlist'] : false;
     $trackToRequest = isset($_GET['requestTrack']) ? $_GET['requestTrack'] : false;
     $trackToRemove = isset($_GET['removeTrackRequest']) ? $_GET['removeTrackRequest'] : false;
 
     if ($searchTerm) {
       output($api->search($searchTerm, 'track'));
-    } else if($playlist) {
-      output($api->getPlaylistTracks($playlist));
+    } else if($playlistId) {
+      $playlistAndEvents = array(
+        'playlist' => $api->getPlaylistTracks($playlistId),
+        'events' => readEvents($playlistId)
+      );
+      output($playlistAndEvents);
     } else if($trackToRequest) {
       $playlist = isset($_GET['for']) ? $_GET['for'] : 'no-playlist-id';
       $trackData = $api->getTrack($trackToRequest);
