@@ -163,10 +163,12 @@ function requestTrackForPlaylist(trackId) {
 }
 
 function removeTrackRequestForPlaylist(trackId) {
+  app.advice = `Removing that track request from our play list...`
   $.getJSON('/views/playlist.php?removeTrackRequest=' + trackId + '&for=' + '5R5M56FezDVaAQGGtataHy')
     .done(data => {
       const events = data
       mergeEventsWithPlaylist({ events })
+      app.advice = `Thank you for improving (?) the quality of our play list :D`
     })
 }
 
