@@ -194,6 +194,7 @@ function addAllRequestsToSpotify() {
       }
       else {
         app.addAllAdvice = `Added all those track requests to your play list :)`
+        getPlaylistTracks()
       }
     })
     .fail(err => {
