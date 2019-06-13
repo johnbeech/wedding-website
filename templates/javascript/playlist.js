@@ -7,6 +7,7 @@ const app = new Vue({
     auth: {},
     searchTerm: '',
     advice: false,
+    addAllAdvice: false,
     search: {
       results: {
         tracks: {
@@ -30,7 +31,8 @@ const app = new Vue({
     removeTrack: (trackId) => {
       console.log('Request track be removed from playlist', trackId)
       removeTrackRequestForPlaylist(trackId)
-    }
+    },
+    addAllRequestsToSpotify
   },
   filters: {
     pretty: (data) => JSON.stringify(data, null, 2)
@@ -162,9 +164,10 @@ function requestTrackForPlaylist(trackId) {
     })
 }
 
+const playlistId = '5R5M56FezDVaAQGGtataHy'
 function removeTrackRequestForPlaylist(trackId) {
   app.advice = `Removing that track request from our play list...`
-  $.getJSON('/views/playlist.php?removeTrackRequest=' + trackId + '&for=' + '5R5M56FezDVaAQGGtataHy')
+  $.getJSON('/views/playlist.php?removeTrackRequest=' + trackId + '&for=' + playlistId)
     .done(data => {
       const events = data
       mergeEventsWithPlaylist({ events })
@@ -174,10 +177,27 @@ function removeTrackRequestForPlaylist(trackId) {
 
 function addTrackToPlaylist(trackId) {
   // only works for tracklist owner
-  $.getJSON('/views/playlist.php?addTrack=' + trackId + '&to=' + '5R5M56FezDVaAQGGtataHy')
+  $.getJSON('/views/playlist.php?addTrack=' + trackId + '&to=' + playlistId)
     .done(data => {
       const playlist = data
       mergeEventsWithPlaylist({ playlist })
+    })
+}
+
+function addAllRequestsToSpotify() {
+  app.addAllAdvice = `Just a moment, adding all those track requests to your play list...`
+  $.getJSON('/views/playlist.php?addAllRequestsToSpotify=1&playlist=' + playlistId)
+    .done(data => {
+      const { detail } = data
+      if (detail) {
+        app.addAllAdvice = `Unable to update playlist: ${detail}`
+      }
+      else {
+        app.addAllAdvice = `Added all those track requests to your play list :)`
+      }
+    })
+    .fail(err => {
+      app.addAllAdvice = `Unable to update playlist, not sure why. Network error? :(`
     })
 }
 

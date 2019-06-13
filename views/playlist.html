@@ -231,6 +231,15 @@
 
         <div class="search results end"></div>
 
+        <div v-if="auth.id === 'hannardynamite' || auth.id === 'x7psyuntbbwfdbgmh5p0smqgu'">
+          <p>Hey again {{ auth.display_name }}!</p>
+          <p>Here's some more options for you:</p>
+          <button v-if="!addAllAdvice" class="connect with spotify" v-on:click="addAllRequestsToSpotify">Add all requests to spotify</button>
+          <div v-if="addAllAdvice">
+            <p class="advice">{{ addAllAdvice }}</p>
+          </div>
+        </div>
+
       </div>
 
       <div v-else>
@@ -243,10 +252,6 @@
           <button class="connect with spotify" v-on:click="connectWithSpotify">Connect with Spotify</button>
         </div>
       </div>
-    </div>
-
-    <div v-if="playlist.tracks">
-      <pre style="display: none;">Tracks: {{ playlist.tracks | pretty }}</pre>
     </div>
   </div>
 </div>

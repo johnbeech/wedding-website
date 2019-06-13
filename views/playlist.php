@@ -71,12 +71,25 @@ if(isset($_SESSION['accessToken'])) {
     $api->setAccessToken($_SESSION['accessToken']);
 
     $searchTerm = isset($_GET['search']) ? $_GET['search'] : false;
+    $addAllRequestsToSpotify = isset($_GET['addAllRequestsToSpotify']) ? true : false;
     $playlistId = isset($_GET['playlist']) ? $_GET['playlist'] : false;
     $trackToRequest = isset($_GET['requestTrack']) ? $_GET['requestTrack'] : false;
     $trackToRemove = isset($_GET['removeTrackRequest']) ? $_GET['removeTrackRequest'] : false;
 
     if ($searchTerm) {
       output($api->search($searchTerm, 'track'));
+    } else if($addAllRequestsToSpotify && $playlistId) {
+      $events = readEvents($playlistId);
+      $trackIdsToAdd = array();
+      foreach ($events as $event) {
+        if ($event['requestTrack']) {
+          $trackIdsToAdd[] = $event['requestTrack']->id;
+        } else if($event['removeTrackRequest']) {
+          $trackIdToRemove = $event->removeTrackRequest;
+          $trackIdsToAdd = array_diff($trackIdsToAdd, array($trackIdToRemove));
+        }
+      }
+      output($api->addPlaylistTracks($playlistId, $trackIdsToAdd));
     } else if($playlistId) {
       $playlistAndEvents = array(
         'playlist' => $api->getPlaylistTracks($playlistId),
