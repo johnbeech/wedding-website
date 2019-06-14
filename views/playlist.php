@@ -90,6 +90,8 @@ if(isset($_SESSION['accessToken'])) {
         }
       }
       output($api->addPlaylistTracks($playlistId, $trackIdsToAdd));
+      $event = array('addPlayListTracks' => $trackIdsToAdd, 'user' => $api->me(), 'datetime' => date('c'));
+      writeEvent($playlistId, $event);
     } else if($playlistId) {
       $playlistAndEvents = array(
         'playlist' => $api->getPlaylistTracks($playlistId),
