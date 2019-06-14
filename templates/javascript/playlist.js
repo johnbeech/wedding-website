@@ -112,6 +112,15 @@ function mergeEventsWithPlaylist({ playlist, events }) {
     return true
   })
 
+  // reset added by
+  events.forEach(event => {
+    if (event.requestTrack) {
+      const track = event.requestTrack
+      const item = dupes[track.id]
+      item.added_by = event.user
+    }
+  })
+
   // add artwork
   items.forEach(item => {
     const track = item.track
