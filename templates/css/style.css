@@ -3,20 +3,39 @@ html, body {
   font-size: 14px;
   color: white;
   background-color: #574b43;
+  background-image: url('../images/background-paper-texture.png');
   margin: 0;
   padding: 0;
 }
 
 .header {
-  display: block;
+  display: flex;
   padding: 6px;
   background-color: black;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .header > heading {
   font-family: Lato, sans-serif;
   font-weight: bold;
   font-size: 120%;
+  margin-right: 10px;
+}
+
+.header > span {
+  font-family: Lato, sans-serif;
+  font-weight: bold;
+  font-sie: 120%;
+  border-left: 2px solid white;
+}
+.header > span > a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+.header > span > a:hover {
+  color: #6fa8dc;
 }
 
 .main {
