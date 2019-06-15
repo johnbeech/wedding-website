@@ -65,7 +65,7 @@ if (isset($_SESSION['refreshToken'])) {
   $session->setRefreshToken($_SESSION['refreshToken']);
 }
 
-function sanitizedUser() {
+function sanitizedUser($api) {
   $me = $api->me();
   $user = array(
     'id' => $me->id,
@@ -99,7 +99,7 @@ if(isset($_SESSION['accessToken'])) {
         }
       }
       output($api->addPlaylistTracks($playlistId, $trackIdsToAdd));
-      $event = array('addPlayListTracks' => $trackIdsToAdd, 'user' => sanitizedUser(), 'datetime' => date('c'));
+      $event = array('addPlayListTracks' => $trackIdsToAdd, 'user' => sanitizedUser($api), 'datetime' => date('c'));
       writeEvent($playlistId, $event);
     } else if($playlistId) {
       $playlistAndEvents = array(
@@ -110,18 +110,18 @@ if(isset($_SESSION['accessToken'])) {
     } else if($trackToRequest) {
       $playlist = isset($_GET['for']) ? $_GET['for'] : 'no-playlist-id';
       $trackData = $api->getTrack($trackToRequest);
-      $event = array('requestTrack' => $trackData, 'user' => sanitizedUser(), 'datetime' => date('c'));
+      $event = array('requestTrack' => $trackData, 'user' => sanitizedUser($api), 'datetime' => date('c'));
       $events = writeEvent($playlist, $event);
       output($events);
     } else if($trackToRemove) {
       $playlist = isset($_GET['for']) ? $_GET['for'] : 'no-playlist-id';
-      $event = array('removeTrackRequest' => $trackToRemove, 'user' => sanitizedUser(), 'datetime' => date('c'));
+      $event = array('removeTrackRequest' => $trackToRemove, 'user' => sanitizedUser($api), 'datetime' => date('c'));
       $events = writeEvent($playlist, $event);
       output($events);
     } else if($playlistOwnerAddAllTracks) {
       output($api->addPlaylistTracks($playlist, array($trackToAdd)));
     } else {
-      output(sanitizedUser());
+      output(sanitizedUser($api));
     }
 
     if ($session->refreshAccessToken($session->getRefreshToken())) {

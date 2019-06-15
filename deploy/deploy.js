@@ -44,7 +44,7 @@ const modes = {
     include: ['**/playlist*']
   }),
   'live-vendor-php': () => deploy({
-    include: ['vendor/**/*.php']
+    include: ['vendor/**/*.*']
   })
 }
 

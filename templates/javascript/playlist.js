@@ -116,7 +116,7 @@ function mergeEventsWithPlaylist({ playlist, events }) {
   events.forEach(event => {
     if (event.requestTrack) {
       const track = event.requestTrack
-      const item = dupes[track.id]
+      const item = items.filter(n => n.track.id === track.id)[0] || {}
       item.added_by = event.user
     }
   })
