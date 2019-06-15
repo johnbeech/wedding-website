@@ -29,7 +29,7 @@ error_reporting(0);
 
 require('../vendor/autoload.php');
 
-use Michelf\Markdown;
+use Michelf\MarkdownExtra;
 
 $requestUri = $_SERVER['REQUEST_URI'];
 
@@ -52,7 +52,7 @@ $embedContent = count($matches[1]) ? $matches[1][0] : 'embed-not-found.html';
 $embeddableContent = @file_get_contents($embedContent, true);
 $contentMD = preg_replace('/```embed: .*```/', $embeddableContent, $contentMD);
 
-$contentHTML = renderIconsAsHTML(Markdown::defaultTransform($contentMD));
+$contentHTML = renderIconsAsHTML(MarkdownExtra::defaultTransform($contentMD));
 preg_match_all('/<h1.*?>(.*)<\/h1>/msi', $contentHTML, $titles);
 $title = count($titles[1]) ? trim(strip_tags($titles[1][0])) : 'No title';
 

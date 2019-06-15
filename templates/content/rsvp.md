@@ -1,4 +1,4 @@
-# Wedding Party - RSVP
+# Wedding Party RSVP
 
 We're getting married on Friday the 7th of November 2019!
 

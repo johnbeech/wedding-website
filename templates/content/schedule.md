@@ -1,4 +1,4 @@
-# Party Schedule
+# Wedding Party Schedule
 
 Please join us to celebrate the marriage of
 
