@@ -43,6 +43,9 @@ const modes = {
   'live-playlist': () => deploy({
     include: ['**/playlist*']
   }),
+  'live-favicon': () => deploy({
+    include: ['images/fv/*.*']
+  }),
   'live-vendor-php': () => deploy({
     include: ['vendor/**/*.*']
   })
