@@ -7,7 +7,7 @@ Hannah Bunce and John Beech
 Starting at 1pm at Oddfellows on the Park
 Bruntwood Park, Cheadle, SK8 1HX
 
-## ~ Schedule ~
+## Schedule
 
 1pm arrival
 

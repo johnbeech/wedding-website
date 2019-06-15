@@ -23,19 +23,25 @@ html, body {
   margin-right: 10px;
 }
 
-.header > span {
+.header.nav > span {
   font-family: Lato, sans-serif;
   font-weight: bold;
-  font-sie: 120%;
+  font-size: 100%;
   border-left: 2px solid white;
 }
-.header > span > a {
+.header > * > a {
   color: white;
   margin: 0 10px;
   text-decoration: none;
 }
+.header > heading > a {
+  margin: 0;
+}
 .header > span > a:hover {
   color: #6fa8dc;
+}
+.header.nav > * {
+  white-space: nowrap;
 }
 
 .main {
@@ -53,8 +59,20 @@ html, body {
   font-style: normal;
 }
 
+.main > h2:before {
+  content: '~ '
+}
+
+.main > h2:after {
+  content: ' ~'
+}
+
 .main > p {
   padding: 0 12px;
+}
+
+.main > ul {
+  display: inline-block;
 }
 
 .footer {
@@ -68,10 +86,23 @@ html, body {
   border-bottom: 2px solid #6fa8dc;
 }
 
-@media only screen and (min-width: 992px) {
-
+@media only screen and (min-width: 660px) {
 }
 
-@media only screen and (max-width: 992px) {
-
+@media only screen and (max-width: 660px) {
+  .header.nav {
+    flex-wrap: wrap;
+  }
+  .header.nav > * {
+    flex: 1 1 auto;
+    text-align: center;
+    margin: 5px 0;
+  }
+  .header.nav > heading {
+    flex-grow: 100 100 auto;
+    width: 100%;
+  }
+  .header.nav > *:last-child {
+    border-right: 2px solid white;
+  }
 }
