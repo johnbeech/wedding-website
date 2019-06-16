@@ -212,6 +212,10 @@
       <button class="submit" v-on:click="submitRSVPForm()">Submit {{ howMany === '1' ? 'my' : 'our' }} RSVP</button>
     </div>
 
+    <div v-if="accessToken">
+      <p>Access token available: {{ accessToken }}</p>
+    </div>
+
     <form>
       <input type="submit" class="robot" value="Submit" meta="Something for the toasters to click" />
     </form>

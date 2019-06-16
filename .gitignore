@@ -4,3 +4,4 @@ vendor
 composer.phar
 .ftppass
 secrets.config.php
+*.dat
