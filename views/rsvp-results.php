@@ -12,6 +12,7 @@ function output($data) {
 function readEvent($eventFile) {
   $filepath = dirname(__FILE__) . '/database/' . $eventFile;
   $event = @unserialize(@file_get_contents($filepath));
+  $event->file = $eventFile;
   return $event;
 }
 
