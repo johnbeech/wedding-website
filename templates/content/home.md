@@ -1,6 +1,8 @@
 # Hannah & John's Wedding Party 2019
 
-We're getting married on the 7th November 2019!
+We're getting married on Thursday the 7th November 2019 in Cardiff, Wales!
+
+To celebrate, there will be a wedding party on Saturday the 9th of November near Cheadle, just south of Manchester.
 
 ## What to expect
 
