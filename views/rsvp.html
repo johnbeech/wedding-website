@@ -136,89 +136,100 @@
 
 <div id="rsvp" style="display: none;">
   <div class="rsvp border">
-    <h2>How many people are you responding for?</h2>
-    <span class="radio row">
-      <input type="radio" value="1" name="how-many" v-model="howMany" />
-      <label for="one-person">One person</label>
-      <input type="radio" value="2" name="how-many" v-model="howMany" />
-      <label for="two-people">Two people</label>
-    </span>
-    <p>If you need to respond for more than two people; please complete the form as many times as you need.</p>
-
-    <span class="input row" v-if="howMany > 0">
-      <label>Person 1's full name:</label>
-      <input type="text" v-model="person1.name" />
-    </span>
-    <span class="input row" v-if="howMany > 1">
-      <label>Person 2's full name:</label>
-      <input type="text" v-model="person2.name" />
-    </span>
-
-    <div v-if="(howMany === '1' && person1.name.trim().includes(' ')) || (person1.name.trim().includes(' ') && person2.name.trim().includes(' '))">
-      <hr />
-      <h2>Will you be attending?</h2>
+    <div v-if="!submitted && !submitting">
+      <h2>How many people are you responding for?</h2>
       <span class="radio row">
-        <input type="radio" value="yes" name="will-you-be-attending" v-model="attending" />
-        <label for="just-me">Yes, {{ howMany === '1' ? 'I' : 'we' }} will be attending</label>
-        <input type="radio" value="no" name="will-you-be-attending" v-model="attending" />
-        <label for="just-me">No, {{ howMany === '1' ? 'I' : 'we' }} will not be attending</label>
+        <input type="radio" value="1" name="how-many" v-model="howMany" />
+        <label for="one-person">One person</label>
+        <input type="radio" value="2" name="how-many" v-model="howMany" />
+        <label for="two-people">Two people</label>
       </span>
-    </div>
+      <p>If you need to respond for more than two people; please complete the form as many times as you need.</p>
 
-    <div v-if="attending === 'yes'">
-      <div>
+      <span class="input row" v-if="howMany > 0">
+        <label>Person 1's full name:</label>
+        <input type="text" v-model="person1.name" />
+      </span>
+      <span class="input row" v-if="howMany > 1">
+        <label>Person 2's full name:</label>
+        <input type="text" v-model="person2.name" />
+      </span>
+
+      <div v-if="(howMany === '1' && person1.name.trim().includes(' ')) || (person1.name.trim().includes(' ') && person2.name.trim().includes(' '))">
         <hr />
-        <h2>Does {{ person1.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
+        <h2>Will you be attending?</h2>
         <span class="radio row">
-          <input type="radio" value="yes" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
-          <label>Yes, {{ person1.name.trim().split(' ')[0] }} has special dietary requirements</label>
-          <input type="radio" value="no" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
-          <label>No, gimme food plz</label>
+          <input type="radio" value="yes" name="will-you-be-attending" v-model="attending" />
+          <label for="just-me">Yes, {{ howMany === '1' ? 'I' : 'we' }} will be attending</label>
+          <input type="radio" value="no" name="will-you-be-attending" v-model="attending" />
+          <label for="just-me">No, {{ howMany === '1' ? 'I' : 'we' }} will not be attending</label>
         </span>
-        <div v-if="person1.hasDietaryRequirements === 'yes'">
-          <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person1.dietaryRequirementsText.length) }} characters remaining)</p>
-          <textarea name="dietary requirements" maxlength="500" v-model="person1.dietaryRequirementsText"></textarea>
-          <p>We will pass these details on to the hotel to make sure you can be appropriately fed.</p>
+      </div>
+
+      <div v-if="attending === 'yes'">
+        <div>
+          <hr />
+          <h2>Does {{ person1.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
+          <span class="radio row">
+            <input type="radio" value="yes" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
+            <label>Yes, {{ person1.name.trim().split(' ')[0] }} has special dietary requirements</label>
+            <input type="radio" value="no" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
+            <label>No, gimme food plz</label>
+          </span>
+          <div v-if="person1.hasDietaryRequirements === 'yes'">
+            <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person1.dietaryRequirementsText.length) }} characters remaining)</p>
+            <textarea name="dietary requirements" maxlength="500" v-model="person1.dietaryRequirementsText"></textarea>
+            <p>We will pass these details on to the hotel to make sure you can be appropriately fed.</p>
+          </div>
+        </div>
+        <div v-if="howMany === '2'">
+          <hr />
+          <h2>Does {{ person2.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
+          <span class="radio row">
+            <input type="radio" value="yes" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
+            <label>Yes, {{ person2.name.trim().split(' ')[0] }} has special dietary requirements</label>
+            <input type="radio" value="no" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
+            <label>No, gimme food plz</label>
+          </span>
+          <div v-if="person2.hasDietaryRequirements === 'yes'">
+            <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person2.dietaryRequirementsText.length) }} characters remaining)</p>
+            <textarea name="dietary requirements" maxlength="500" v-model="person2.dietaryRequirementsText"></textarea>
+            <p>We will pass these details on to the hotel to make sure you can be appropriately fed.</p>
+          </div>
         </div>
       </div>
-      <div v-if="howMany === '2'">
+
+      <div v-if="attending === 'yes' && ((howMany === '1' && person1.hasDietaryRequirements !== 'unknown') || (howMany === '2' && person1.hasDietaryRequirements !== 'unknown' && person2.hasDietaryRequirements !== 'unknown'))">
         <hr />
-        <h2>Does {{ person2.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
-        <span class="radio row">
-          <input type="radio" value="yes" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
-          <label>Yes, {{ person2.name.trim().split(' ')[0] }} has special dietary requirements</label>
-          <input type="radio" value="no" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
-          <label>No, gimme food plz</label>
-        </span>
-        <div v-if="person2.hasDietaryRequirements === 'yes'">
-          <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person2.dietaryRequirementsText.length) }} characters remaining)</p>
-          <textarea name="dietary requirements" maxlength="500" v-model="person2.dietaryRequirementsText"></textarea>
-          <p>We will pass these details on to the hotel to make sure you can be appropriately fed.</p>
-        </div>
+        <h2>Almost done</h2>
+        <p>Please check your details and then click the button below.</p>
+        <button class="submit" v-on:click="submitRSVPForm()">Submit {{ howMany === '1' ? 'my' : 'our' }} RSVP</button>
       </div>
+
+      <div v-if="attending === 'no'">
+        <hr />
+        <h2>Almost done</h2>
+        <p>We're sorry to hear that you'll be unable to attend. If you change your mind... please let us know.</p>
+        <button class="submit" v-on:click="submitRSVPForm()">Submit {{ howMany === '1' ? 'my' : 'our' }} RSVP</button>
+      </div>
+
+      <form>
+        <input type="submit" class="robot" value="Submit" meta="Something for the toasters to click" />
+      </form>
     </div>
 
-    <div v-if="attending === 'yes' && ((howMany === '1' && person1.hasDietaryRequirements !== 'unknown') || (howMany === '2' && person1.hasDietaryRequirements !== 'unknown' && person2.hasDietaryRequirements !== 'unknown'))">
-      <hr />
-      <h2>Almost done</h2>
-      <p>Please check your details and then click the button below.</p>
-      <button class="submit">Submit my RSVP</button>
+    <div v-if="submitting">
+      <h2>RSVP Sending</h2>
+      <p>{{ rsvpSuccess }}</p>
     </div>
 
-    <div v-if="attending === 'no'">
-      <hr />
-      <h2>Almost done</h2>
-      <p>We're sorry to hear that you'll be unable to attend. If you change your mind... please let us know.</p>
-      <button class="submit" v-on:click="submitRSVPForm()">Submit {{ howMany === '1' ? 'my' : 'our' }} RSVP</button>
-    </div>
+    <div v-if="submitted">
+      <h2>RSVP Submitted</h2>
+      <p>Thank you for submitting your RSVP!</p>
 
-    <div v-if="accessToken">
-      <p>Access token available: {{ accessToken }}</p>
+      <h2>What next?</h2>
+      <p>Please look around this wedding website to get involved with <a href="/playlist">making a playlist for the day</a>, for information on <a href="/getting-there">how to get to the wedding party location</a>, and to read the <a href="/schedule">schedule for the day</a>.</p>
     </div>
-
-    <form>
-      <input type="submit" class="robot" value="Submit" meta="Something for the toasters to click" />
-    </form>
   </div>
 </div>
 <script src="/javascript/rsvp.js"></script>

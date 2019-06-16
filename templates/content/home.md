@@ -6,7 +6,7 @@ To celebrate, there will be a wedding party on Saturday the 9th of November near
 
 ## What to expect
 
-Please browse this mini wedding website to get involved with <a href="/playlist">making a playlist for the day</a>, for information on <a href="/getting-there">how to get to the wedding party location</a>, and to read the <a href="/schedule">schedule for the day</a>. Be sure to <a href="/rsvp">RSVP</a> if you've not already!
+Please look around this wedding website to get involved with <a href="/playlist">making a playlist for the day</a>, for information on <a href="/getting-there">how to get to the wedding party location</a>, and to read the <a href="/schedule">schedule for the day</a>. Be sure to <a href="/rsvp">RSVP</a> if you've not already!
 
 ![Oddfellows Entrance](/images/oddfellows-01.jpg)
 

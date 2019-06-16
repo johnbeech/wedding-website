@@ -4,6 +4,8 @@ const app = new Vue({
   el: '#rsvp',
   data: {
     accessToken: false,
+    submitted: false,
+    submitting: false,
     message: 'Please complete the form to RSVP',
     howMany: 0,
     person1: {
@@ -36,7 +38,8 @@ function submitRSVPForm() {
     person2: model.person2,
     attending: model.attending
   })
-  console.log('TODO: Send the RSVP data somewhere', data)
+  console.log('Sending the RSVP data somewhere:', data)
+  model.submitting = true
   sendFormData(data)
 }
 
@@ -45,6 +48,9 @@ function requestAccessToken() {
     .done(data => {
       const { accessToken } = data
       app.accessToken = accessToken
+      // only show form when access token is received
+      const rsvpEl = document.getElementById('rsvp')
+      rsvpEl.style.display = 'block'
     })
 }
 
@@ -59,6 +65,8 @@ function sendFormData(event) {
      },
      success: function() {
        app.rsvpSuccess = 'Recorded your RSVP'
+       app.submitting = false
+       app.submitted = true
      },
      error: function() {
        app.rsvpSuccess = 'Unable to record your RSVP ... please get in touch with Hannah or John!'
@@ -69,9 +77,8 @@ function sendFormData(event) {
   function setHeader(xhr) {
     xhr.setRequestHeader('Access-Token', app.accessToken)
   }
-}
 
-const rsvpEl = document.getElementById('rsvp')
-rsvpEl.style.display = 'block'
+  app.rsvpSuccess = 'Just a moment while we record your RSVP.'
+}
 
 requestAccessToken()
