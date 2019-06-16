@@ -1,0 +1,220 @@
+<style>
+
+  #rsvp {
+    position: relative;
+    margin: 40px auto;
+    padding: 0 10px;
+    min-width: 350px;
+    max-width: 860px;
+    font-style: normal;
+  }
+
+  .rsvp {
+    padding: 10px;
+  }
+
+  .rsvp.border {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .rsvp .input.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .rsvp input {
+    flex: 2 4 auto;
+    padding: 6px 12px;
+    border: 1px solid rgba(0,0,0, 0.5);
+    outline: none;
+    border-radius: 6px;
+    font-size: 120%;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #444;
+  }
+
+  .rsvp .radio.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .rsvp input[type="radio"] {
+    position: relative;
+    flex: 1 1 auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 2px solid #444;
+    text-align: left;
+    max-width: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #AAA;
+  }
+  .rsvp input[type="radio"]:checked::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.9);
+  }
+  .rsvp input[type="radio"]:hover {
+    background-color: #f7f7f7;
+  }
+  .rsvp input[type="radio"]:checked {
+    background-color: #f1f1f1;
+  }
+
+  .rsvp input[type="text"] {
+    max-width: 400px;
+  }
+
+  .rsvp label {
+    flex: 0 1 auto;
+    font-size: 120%;
+    text-align: left;
+    margin: 0 10px;
+  }
+
+  .rsvp .input.row label {
+    min-width: 170px;
+  }
+
+  .rsvp textarea {
+    min-width: 90%;
+    height: 100px;
+    padding: 6px 12px;
+    border: 1px solid rgba(0,0,0, 0.1);
+    outline: none;
+    border-radius: 6px;
+    font-size: 120%;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #444;
+  }
+
+  .robot {
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .rsvp button.submit {
+    font-family: Lora, serif;
+    padding: 12px 18px;
+    border: 1px solid rgba(0,0,0, 0.1);
+    outline: none;
+    border-radius: 6px;
+    font-size: 120%;
+    color: #444;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.9);
+  }
+  .rsvp button.submit:hover {
+    background: rgba(255, 255, 255, 1.0);
+  }
+  .rsvp button.submit:active {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+</style>
+
+<div id="rsvp" style="display: none;">
+  <div class="rsvp border">
+    <h2>How many people are you responding for?</h2>
+    <span class="radio row">
+      <input type="radio" value="1" name="how-many" v-model="howMany" />
+      <label for="one-person">One person</label>
+      <input type="radio" value="2" name="how-many" v-model="howMany" />
+      <label for="two-people">Two people</label>
+    </span>
+    <p>If you need to respond for more than two people; please complete the form as many times as you need.</p>
+
+    <span class="input row" v-if="howMany > 0">
+      <label>Person 1's full name:</label>
+      <input type="text" v-model="person1.name" />
+    </span>
+    <span class="input row" v-if="howMany > 1">
+      <label>Person 2's full name:</label>
+      <input type="text" v-model="person2.name" />
+    </span>
+
+    <div v-if="(howMany === '1' && person1.name.trim().includes(' ')) || (person1.name.trim().includes(' ') && person2.name.trim().includes(' '))">
+      <hr />
+      <h2>Will you be attending?</h2>
+      <span class="radio row">
+        <input type="radio" value="yes" name="will-you-be-attending" v-model="attending" />
+        <label for="just-me">Yes, {{ howMany === '1' ? 'I' : 'we' }} will be attending</label>
+        <input type="radio" value="no" name="will-you-be-attending" v-model="attending" />
+        <label for="just-me">No, {{ howMany === '1' ? 'I' : 'we' }} will not be attending</label>
+      </span>
+    </div>
+
+    <div v-if="attending === 'yes'">
+      <div>
+        <hr />
+        <h2>Does {{ person1.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
+        <span class="radio row">
+          <input type="radio" value="yes" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
+          <label>Yes, {{ person1.name.trim().split(' ')[0] }} has special dietary requirements</label>
+          <input type="radio" value="no" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
+          <label>No, gimme food plz</label>
+        </span>
+        <div v-if="person1.hasDietaryRequirements === 'yes'">
+          <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person1.dietaryRequirementsText.length) }} characters remaining)</p>
+          <textarea name="dietary requirements" maxlength="500" v-model="person1.dietaryRequirementsText"></textarea>
+          <p>We will pass these details on to the hotel to make sure you can be appropriately fed.</p>
+        </div>
+      </div>
+      <div v-if="howMany === '2'">
+        <hr />
+        <h2>Does {{ person2.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
+        <span class="radio row">
+          <input type="radio" value="yes" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
+          <label>Yes, {{ person2.name.trim().split(' ')[0] }} has special dietary requirements</label>
+          <input type="radio" value="no" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
+          <label>No, gimme food plz</label>
+        </span>
+        <div v-if="person2.hasDietaryRequirements === 'yes'">
+          <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person2.dietaryRequirementsText.length) }} characters remaining)</p>
+          <textarea name="dietary requirements" maxlength="500" v-model="person2.dietaryRequirementsText"></textarea>
+          <p>We will pass these details on to the hotel to make sure you can be appropriately fed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="attending === 'yes' && ((howMany === '1' && person1.hasDietaryRequirements !== 'unknown') || (howMany === '2' && person1.hasDietaryRequirements !== 'unknown' && person2.hasDietaryRequirements !== 'unknown'))">
+      <hr />
+      <h2>Almost done</h2>
+      <p>Please check your details and then click the button below.</p>
+      <button class="submit">Submit my RSVP</button>
+    </div>
+
+    <div v-if="attending === 'no'">
+      <hr />
+      <h2>Almost done</h2>
+      <p>We're sorry to hear that you'll be unable to attend. If you change your mind... please let us know.</p>
+      <button class="submit" v-on:click="submitRSVPForm()">Submit {{ howMany === '1' ? 'my' : 'our' }} RSVP</button>
+    </div>
+
+    <form>
+      <input type="submit" class="robot" value="Submit" meta="Something for the toasters to click" />
+    </form>
+  </div>
+</div>
+<script src="/javascript/rsvp.js"></script>
