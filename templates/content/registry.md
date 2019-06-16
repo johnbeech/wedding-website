@@ -1,13 +1,17 @@
 # Wedding Registry
 
-Your presence at our wedding is the best present enough, but if you'd like to bring something, please consider gifting something towards our wedding registry list:
+Your presence at our wedding is present enough, but if you'd like to bring something, please consider gifting something towards our wedding registry list:
 
 | Idea                 | Details                                                                                                                        |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | Board Games          | We don't really need any more board games, but maybe surprise us!                                                              |
-| Lego                 | I'm sure there's a block head, space set, or extension to our Hogwarts castle we don't own...                                  |
+| Lego                 | We're sure there's a block head, space set, or extension to our Hogwarts castle we don't own...                                  |
 | Dinosaurs            | Our ever growing army of dinosaur plushies can always do with more pack members.                                               |
-| Honeymoon Adventures | We've already covered the cost of our Honeymoon, but if you want us have an even better adventure, please gift towards one of: |
+
+
+Our honeymoon is all booked and the cost is covered. We'll be jetting off to Mauritius and staying in the lovely 4* resort of Solana Beach in the north west of the island. Whilst we're enjoying ourselves and relaxing with our all-inclusive package, we don't have any adventures planned. If you have any ideas for good honeymoon adventures in Mauritius, please gift towards one of:
+| Idea                 | Details                                                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | -                    | Vanille Reserve nature park tour                                                                                               |
 | -                    | Day trip to Ile aux Aigrettes                                                                                                  |
 | -                    | Catamaran cruise with lunch                                                                                                    |
