@@ -46,6 +46,9 @@ const modes = {
   'live-rsvp': () => deploy({
     include: ['**/rsvp*']
   }),
+  'live-attendee-list': () => deploy({
+    include: ['**/attendee*']
+  }),
   'live-favicon': () => deploy({
     include: ['images/fv/*.*']
   }),

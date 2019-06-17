@@ -1,0 +1,77 @@
+<style>
+  #attendee-list {
+    margin: 0 10px;
+  }
+
+  input {
+    background: #DDD;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 8px 24px 9px;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    outline: none;
+    margin: 0 0 15px 0;
+  }
+  input:hover {
+    background: #FFF;
+  }
+  input:active {
+    background: #EEE;
+  }
+
+  .response {
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.2);
+    padding: 3px;
+    margin: 10px 0;
+  }
+
+  .datetime {
+    color: black;
+  }
+
+  .person {
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.5);
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+    margin: 5px 0;
+  }
+  .person > .name {
+    display: block;
+    margin: 10px;
+  }
+  .person > .hasDietaryRequirements {
+    display: block;
+    margin: 10px;
+  }
+  .person > .dietaryRequirementsText {
+    display: block;
+    margin: 10px;
+  }
+</style>
+
+<div id="attendee-list" style="display: none;">
+  <input v-if="!responses.length" type="text" v-model="accessToken" />
+  <div v-for="response in responses">
+    <div class="response">
+      <span class="datetime">{{ response.file | filedate | timeSince }}</span>
+      <div v-if="response.person1.name" class="person">
+        <span class="name">{{ response.person1.name }}</span>
+        <span class="hasDietaryRequirements" v-if="response.attending === 'yes'">Has dietary requirements: {{ response.person1.hasDietaryRequirements }}</span>
+        <span class="dietaryRequirementsText" v-if="response.person1.hasDietaryRequirements === 'yes'">{{ response.person1.dietaryRequirementsText }}</span>
+      </div>
+      <div v-if="response.person2.name" class="person">
+        <span class="name">{{ response.person2.name }}</span>
+        <span class="hasDietaryRequirements" v-if="response.attending === 'yes'">Has dietary requirements: {{ response.person2.hasDietaryRequirements }}</span>
+        <span class="dietaryRequirementsText" v-if="response.person2.hasDietaryRequirements === 'yes'">{{ response.person2.dietaryRequirementsText }}</span>
+      </div>
+      <span class="attending">Attending: {{ response.attending }}</span>
+    </div>
+  </div>
+</div>
+
+<script src="/javascript/attendee-list.js"></script>

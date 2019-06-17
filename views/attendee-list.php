@@ -1,5 +1,7 @@
 <?php
 
+require('./secrets.config.php');
+
 session_start();
 
 // Make formatter for page responses
@@ -28,4 +30,12 @@ function readDirectory() {
   return array_values($events);
 }
 
-output(readDirectory());
+$headers = apache_request_headers();
+$userAccessToken = isset($headers['Access-Token']) ? $headers['Access-Token'] : $_SESSION['userAccessToken'];
+
+if ($userAccessToken === $ATTENDEE_LIST_PASSWORD) {
+  $_SESSION['userAccessToken'] = $userAccessToken;
+  output(readDirectory());
+} else {
+  output([]);
+}
