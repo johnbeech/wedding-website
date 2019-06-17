@@ -1,5 +1,7 @@
 <?php
 
+require('./secrets.config.php');
+
 session_start();
 
 // Make formatter for page responses
@@ -21,6 +23,37 @@ function readEvents($eventId) {
   $events = @unserialize(@file_get_contents($filepath));
   $events = $events ? $events : array();
   return $events;
+}
+
+function keepTruthy($val) {
+  return !!$val;
+}
+
+function sendEmail($person1, $person2, $attending, $dietaryRequirements1, $dietaryRequirements2) {
+  global $RSVP_MAILER_FROM, $RSVP_MAILER_TO;
+  $from = $RSVP_MAILER_FROM;
+  $to = $RSVP_MAILER_TO;
+  $names = join(', and ', array_filter(array($person1, $person2), 'keepTruthy'));
+  $dietaryRequirements = array_filter(array("$person1: $dietaryRequirements1", $person2 ? "$person2: $dietaryRequirements2" : false), 'keepTruthy');
+  if ($attending === 'yes') {
+    $subject = "RSVP Received for $names - they are attending! :)";
+    $message = join("\r\n", array(
+      "$names will be joining us for our wedding party.",
+      "",
+      "Dietary requirements: ",
+      join("\r\n", $dietaryRequirements)
+    ));
+  }
+  else if($attending === 'no') {
+    $subject = "RSVP Received for $names - they are not attending! :(";
+    $message = "$names will not be joining us for our wedding party.";
+  }
+  else {
+    $subject = "RSVP Weird data received - please investigate";
+  }
+  $headers = "From: " . $from . "\r\n";
+  $headers .= "Content-Type: text/plain; charset=UTF-8" . "\r\n";
+  mail($to, $subject, $message, $headers);
 }
 
 // Block requests from invalid referrers
@@ -53,6 +86,13 @@ if ($userAccessToken && $userAccessToken === $_SESSION['serverAccessToken']) {
       'event' => $event,
       'message' => 'Recorded event'
     ));
+    sendEmail(
+      $event->person1->name,
+      $event->person2->name,
+      $event->attending,
+      $event->person1->dietaryRequirementsText,
+      $event->person2->dietaryRequirementsText
+    );
   }
   die();
 }
