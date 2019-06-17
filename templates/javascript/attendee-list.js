@@ -69,14 +69,12 @@ const app = new Vue({
   data: {
     accessToken: '',
     responses: [],
+    serverTime: false,
     message: false
   },
   filters: {
     filedate,
-    timeSince: (date) => {
-      const age = timeUntil(date)
-      return age.string
-    }
+    timeSince
   },
   watch: {
     accessToken: (nextSearch, prevSearch) => {
@@ -89,6 +87,11 @@ const app = new Vue({
     }
   }
 })
+
+function timeSince(date) {
+  const age = timeUntil(date, app.serverTime || new Date())
+  return age.string
+}
 
 function filedate(string) {
   const datepart = string.substr(0, 19)
@@ -109,7 +112,8 @@ function requestAttendeeList() {
      },
      success: function(data) {
        app.message = false
-       app.responses = data
+       app.responses = data.responses || [],
+       app.serverTime = new Date(data.serverTime)
      },
      error: function() {
        app.message = 'Unable to load attendee list! Please check your password'

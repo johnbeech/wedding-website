@@ -35,7 +35,10 @@ $userAccessToken = isset($headers['Access-Token']) ? $headers['Access-Token'] : 
 
 if ($userAccessToken === $ATTENDEE_LIST_PASSWORD) {
   $_SESSION['userAccessToken'] = $userAccessToken;
-  output(readDirectory());
+  output(array(
+    'responses' => readDirectory(),
+    'serverTime' => date('Y-m-d H:i:s')
+  ));
 } else {
   output([]);
 }
