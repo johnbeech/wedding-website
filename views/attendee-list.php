@@ -31,7 +31,8 @@ function readDirectory() {
 }
 
 $headers = apache_request_headers();
-$userAccessToken = isset($headers['Access-Token']) ? $headers['Access-Token'] : $_SESSION['userAccessToken'];
+$userAccessToken = isset($headers['Access-Token']) ? $headers['Access-Token'] : false;
+$userAccessToken = isset($_SESSION['userAccessToken']) ? $_SESSION['userAccessToken'] : $userAccessToken;
 
 if ($userAccessToken === $ATTENDEE_LIST_PASSWORD) {
   $_SESSION['userAccessToken'] = $userAccessToken;
