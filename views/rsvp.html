@@ -44,7 +44,6 @@
   .rsvp .radio.row {
     display: flex;
     justify-content: center;
-    align-items: center;
     margin: 20px 0;
   }
 
@@ -80,6 +79,7 @@
 
   .rsvp input[type="text"] {
     max-width: 400px;
+    width: 100%;
   }
 
   .rsvp label {
@@ -132,6 +132,18 @@
     background: rgba(255, 255, 255, 0.8);
   }
 
+  .radio.option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .rsvp .row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 </style>
 
 <div id="rsvp" style="display: none;">
@@ -139,30 +151,38 @@
     <div v-if="!submitted && !submitting">
       <h2>How many people are you responding for?</h2>
       <span class="radio row">
-        <input type="radio" value="1" name="how-many" v-model="howMany" />
-        <label for="one-person">One person</label>
-        <input type="radio" value="2" name="how-many" v-model="howMany" />
-        <label for="two-people">Two people</label>
+        <span class="radio option">
+          <input type="radio" value="1" name="how-many" v-model="howMany" />
+          <label for="one-person">One person</label>
+        </span>
+        <span class="radio option">
+          <input type="radio" value="2" name="how-many" v-model="howMany" />
+          <label for="two-people">Two people</label>
+        </span>
       </span>
       <p>If you need to respond for more than two people; please complete the form as many times as you need.</p>
 
       <span class="input row" v-if="howMany > 0">
-        <label>Person 1's full name:</label>
+        <label>Person 1's name:</label>
         <input type="text" v-model="person1.name" />
       </span>
       <span class="input row" v-if="howMany > 1">
-        <label>Person 2's full name:</label>
+        <label>Person 2's name:</label>
         <input type="text" v-model="person2.name" />
       </span>
 
-      <div v-if="(howMany === '1' && person1.name.trim().includes(' ')) || (person1.name.trim().includes(' ') && person2.name.trim().includes(' '))">
+      <div v-if="howMany > 0">
         <hr />
         <h2>Will you be attending?</h2>
         <span class="radio row">
-          <input type="radio" value="yes" name="will-you-be-attending" v-model="attending" />
-          <label for="just-me">Yes, {{ howMany === '1' ? 'I' : 'we' }} will be attending</label>
-          <input type="radio" value="no" name="will-you-be-attending" v-model="attending" />
-          <label for="just-me">No, {{ howMany === '1' ? 'I' : 'we' }} will not be attending</label>
+          <span class="radio option">
+            <input type="radio" value="yes" name="will-you-be-attending" v-model="attending" />
+            <label for="just-me">Yes, {{ howMany === '1' ? 'I' : 'we' }} will be attending</label>
+          </span>
+          <span class="radio option">
+            <input type="radio" value="no" name="will-you-be-attending" v-model="attending" />
+            <label for="just-me">No, {{ howMany === '1' ? 'I' : 'we' }} will not be attending</label>
+          </span>
         </span>
       </div>
 
@@ -171,10 +191,14 @@
           <hr />
           <h2>Does {{ person1.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
           <span class="radio row">
-            <input type="radio" value="yes" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
-            <label>Yes, {{ person1.name.trim().split(' ')[0] }} has special dietary requirements</label>
-            <input type="radio" value="no" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
-            <label>No, gimme food plz</label>
+            <span class="radio option">
+              <input type="radio" value="yes" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
+              <label>Yes, {{ person1.name.trim().split(' ')[0] }} has special dietary requirements</label>
+            </span>
+            <span class="radio option">
+              <input type="radio" value="no" name="p1-dietary-requirements" v-model="person1.hasDietaryRequirements" />
+              <label>No, gimme food plz</label>
+            </span>
           </span>
           <div v-if="person1.hasDietaryRequirements === 'yes'">
             <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person1.dietaryRequirementsText.length) }} characters remaining)</p>
@@ -186,10 +210,14 @@
           <hr />
           <h2>Does {{ person2.name.trim().split(' ')[0] }} have any special dietary requirements?</h2>
           <span class="radio row">
-            <input type="radio" value="yes" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
-            <label>Yes, {{ person2.name.trim().split(' ')[0] }} has special dietary requirements</label>
-            <input type="radio" value="no" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
-            <label>No, gimme food plz</label>
+            <span class="radio option">
+              <input type="radio" value="yes" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
+              <label>Yes, {{ person2.name.trim().split(' ')[0] }} has special dietary requirements</label>
+            </span>
+            <span class="radio option">
+              <input type="radio" value="no" name="p2-dietary-requirements" v-model="person2.hasDietaryRequirements" />
+              <label>No, gimme food plz</label>
+            </span>
           </span>
           <div v-if="person2.hasDietaryRequirements === 'yes'">
             <p>In 500 characters or less, please explain your dietary requirements: ({{ (500 - person2.dietaryRequirementsText.length) }} characters remaining)</p>
