@@ -4,4 +4,4 @@ You are cordially invited to our wedding party on Saturday the 9th of November 2
 
 Please use the form below to RSVP before the 1st of October 2019. If you're unable to complete the form, please contact Hannah or John by text. Your RSVP will ensure we can order the right amount of food, and set up the right number of tables and chairs.
 
-```embed: rsvp.html```
+`embed: html/rsvp.html`

@@ -47,10 +47,10 @@ $contentMD = preg_replace('/```background: .*```/', '', $contentMD);
 $contentMD = str_replace('{{location}}', $path, $contentMD);
 
 
-preg_match_all('/```embed: (.*)```/msi', $contentMD, $matches);
+preg_match_all('/`embed: (.*)`/msi', $contentMD, $matches);
 $embedContent = count($matches[1]) ? $matches[1][0] : 'embed-not-found.html';
 $embeddableContent = @file_get_contents($embedContent, true);
-$contentMD = preg_replace('/```embed: .*```/', $embeddableContent, $contentMD);
+$contentMD = preg_replace('/`embed: .*`/', $embeddableContent, $contentMD);
 
 $contentHTML = renderIconsAsHTML(MarkdownExtra::defaultTransform($contentMD));
 preg_match_all('/<h1.*?>(.*)<\/h1>/msi', $contentHTML, $titles);

@@ -12,7 +12,7 @@ Oddfellows hotel is a smart and quirky hotel in the middle of Bruntwood park, ju
 
 `Oddfellows on the Park Bruntwood Park, Cheadle, SK8 1HX`
 
-```embed: getting-there.html```
+`embed: html/getting-there.html`
 
 ![Zoomed out map of south manchester, showing Manchester Airport, Stockport, Cheadle, and Parrs Wood.](images/oddfellows-on-the-park-map-3.png)
 
