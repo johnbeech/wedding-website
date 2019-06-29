@@ -58,9 +58,15 @@
     max-width: 30px;
     height: 30px;
     text-align: center;
-    background: #AAA;
+    background: #CCC;
   }
-  .rsvp input[type="radio"]:checked::before {
+  .rsvp input[type="radio"]:checked {
+    background-color: #DDD;
+  }
+  .rsvp input[type="radio"]:hover, .rsvp input[type="radio"]:checked:hover {
+    background-color: #EEE;
+  }
+  .rsvp input[type="radio"]::before {
     content: '';
     position: absolute;
     top: 4px;
@@ -68,13 +74,16 @@
     width: 20px;
     height: 20px;
     border-radius: 4px;
+    background: rgba(0,0,0,0.05);
+  }
+  .rsvp input[type="radio"]:hover::before {
+    background: rgba(0,0,0,0.0.05);
+  }
+  .rsvp input[type="radio"]:checked:hover::before {
+    background: rgba(0,0,0,1.0);
+  }
+  .rsvp input[type="radio"]:checked::before {
     background: rgba(0,0,0,0.9);
-  }
-  .rsvp input[type="radio"]:hover {
-    background-color: #f7f7f7;
-  }
-  .rsvp input[type="radio"]:checked {
-    background-color: #f1f1f1;
   }
 
   .rsvp input[type="text"] {
