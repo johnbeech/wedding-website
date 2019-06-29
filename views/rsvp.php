@@ -61,7 +61,8 @@ function sendEmail($person1, $person2, $attending, $dietaryRequirements1, $dieta
 $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : false;
 if ($referer !== 'https://wedding.hannahjohn2019.wedding/rsvp') {
   output(array(
-    error => 'INVALID_REFERER'
+    'error' => 'INVALID_REFERER',
+    'referer' => $referer
   ));
   die();
 }

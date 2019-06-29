@@ -49,7 +49,7 @@ $contentMD = str_replace('{{location}}', $path, $contentMD);
 
 preg_match_all('/`embed: (.*)`/msi', $contentMD, $matches);
 $embedContent = count($matches[1]) ? $matches[1][0] : 'embed-not-found.html';
-$embeddableContent = @file_get_contents($embedContent, true);
+$embeddableContent = @file_get_contents('../content/' . $embedContent, true);
 $contentMD = preg_replace('/`embed: .*`/', $embeddableContent, $contentMD);
 
 $contentHTML = renderIconsAsHTML(MarkdownExtra::defaultTransform($contentMD));
