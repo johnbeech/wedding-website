@@ -7,3 +7,5 @@ $ATTENDEE_LIST_PASSWORD = 'somepass';
 
 $RSVP_MAILER_FROM = 'mailbot@domain.net';
 $RSVP_MAILER_TO = 'your-name@domain.net, your-partners-name@domain.net';
+
+$EXPECTED_DOMAIN = 'local-dev-server';

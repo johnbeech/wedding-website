@@ -1,0 +1,53 @@
+{
+  "pledgeOptions": [{
+    "pledgeOptionId": "TTH-1",
+    "category": "travel-to-honeymoon",
+    "title": "The Escape Lounge",
+    "amount": {
+      "value": 60,
+      "unit": "GBP"
+    },
+    "link": "/images/Manchester%20T1%20-%20HD%20.pdf",
+    "pledges": []
+  }, {
+    "pledgeOptionId": "HDT-1",
+    "category": "honeymoon-day-trips",
+    "title": "Dolphin Swim and Benitiers Island Day Trip with Lunch",
+    "amount": "160",
+    "currency": "GBP",
+    "pledges": [{
+      "name": "John",
+      "amount": {
+        "value": 45,
+        "unit": "GBP"
+      }
+    }]
+  }, {
+    "pledgeOptionId": "HDT-2",
+    "category": "honeymoon-day-trips",
+    "title": "Catamaran Cruises Mauritius Full-Day Cruise to Isle Aux Cerfs",
+    "amount": "160",
+    "currency": "GBP",
+    "pledges": []
+  }, {
+    "pledgeOptionId": "HDT-3",
+    "category": "honeymoon-day-trips",
+    "title": "Full-Day Tour of South West Mauritius",
+    "amount": "160",
+    "currency": "GBP",
+    "pledges": []
+  }],
+  "categories": [{
+    "categoryId": "presents",
+    "title": "registry-ideas",
+    "description": "Things to help us remember our wedding day:"
+  }, {
+    "categoryId": "travel-to-honeymoon",
+    "title": "Travelling to our Honeymoon Destination",
+    "description": "Our honeymoon is all booked and the cost is covered; we'll be jetting off to Mauritius and staying in the lovely 4-star resort of Solana Beach in the north west of the island."
+  }, {
+    "categoryId": "honeymoon-day-trips",
+    "title": "Honeymoon Day Trips",
+    "description": "Whilst we're enjoying ourselves and relaxing with our all-inclusive package, we don't have any adventures planned. If you have any ideas for good honeymoon adventures in Mauritius, please gift towards one of:"
+  }]
+}

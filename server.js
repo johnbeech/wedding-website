@@ -11,6 +11,7 @@ app.use('/images', express.static(path.join(__dirname, 'build/images')))
 app.use('/javascript', express.static(path.join(__dirname, 'build/javascript')))
 app.get('/views/rsvp.php', renderRSVP)
 app.get('/views/playlist.php', renderPlaylist)
+app.get('/views/pledge-manager.php', renderPledgeManager)
 app.get('/*', render)
 app.post('/*', render)
 
@@ -58,6 +59,25 @@ function renderPlaylist(req, res) {
     server: {
       REQUEST_URI: req.url,
       HTTPS: true
+    }
+  }, (err, body) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      res.send(body)
+    }
+  })
+}
+
+function renderPledgeManager(req, res) {
+  phpExpress.engine(path.join(__dirname, 'build/views/pledge-manager.php'), {
+    method: req.method,
+    get: req.query,
+    post: req.body,
+    server: {
+      REQUEST_URI: req.url,
+      HTTPS: true,
+      HTTP_REFERER: 'local-dev-server'
     }
   }, (err, body) => {
     if (err) {
