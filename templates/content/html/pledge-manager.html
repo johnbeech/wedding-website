@@ -4,11 +4,16 @@
     <p>{{ category.description }}</p>
     <div class="pledge options">
       <div v-for="option in $root.pledgeConfig.pledgeOptions.filter(n => n.category === category.categoryId)" :class="['pledge', 'option', option.pledgeOptionId].join(' ')">
-        <span class="title">{{option.title}}</span>
+        <span class="title">
+          <a :href="option.link" v-if="option.link"><b>{{option.title}}</b></a>
+          <b v-else>{{option.title}}</b>
+        </span>
         <span class="description">{{option.description}}</span>
-        <span>{{ option.pledges | total }}</span>
-        <span>of</span>
-        <span :class="option.amount.unit">{{ option.amount.value }}</span>
+        <span class="progress">
+          <span class="total">{{ option.pledges | total }}</span>
+          <span>of</span>
+          <span :class="[option.amount.unit, 'unit'].join(' ')">{{ option.amount.value }}</span>
+        </span>
       </div>
     </div>
   </div>
@@ -20,8 +25,30 @@
 .pledge.option {
   padding: 10px 0;
   border-top: 2px solid white;
+  display: flex;
+}
+.pledge.option > span {
+  flex: 0 0 auto;
+  margin: 0 4px;
+  text-align: left;
+}
+.pledge.option > span.title {
+  flex: 1 1 auto;
+  min-width: 150px;
+}
+.pledge.option > span.description {
+  flex: 50 50 auto;
+}
+.pledge.option > span.progress {
+  flex: 0 0 auto;
 }
 .pledge.option:last-child {
   border-bottom: 2px solid white;
+}
+.unit.GBP::before {
+  content: '£'
+}
+.unit.Pledges::after {
+  content: ' pledges'
 }
 </style>

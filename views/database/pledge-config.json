@@ -44,6 +44,7 @@
     "pledgeOptionId": "HDT-1",
     "category": "honeymoon-day-trips",
     "title": "Dolphin Swim and Benitiers Island Day Trip with Lunch",
+    "link": "/images/MAURITIUS%20EXCURSIONS%20LIST%20HMD1.pdf",
     "amount": {
       "value": 160,
       "unit": "GBP"
@@ -60,6 +61,7 @@
     "pledgeOptionId": "HDT-2",
     "category": "honeymoon-day-trips",
     "title": "Catamaran Cruises Mauritius Full-Day Cruise to Isle Aux Cerfs",
+    "link": "/images/MAURITIUS%20EXCURSIONS%20LIST%20HMD1.pdf",
     "amount": {
       "value": 140,
       "unit": "GBP"
@@ -70,6 +72,7 @@
     "pledgeOptionId": "HDT-3",
     "category": "honeymoon-day-trips",
     "title": "Full-Day Tour of South West Mauritius",
+    "link": "/images/MAURITIUS%20EXCURSIONS%20LIST%20HMD1.pdf",
     "amount": {
       "value": 120,
       "unit": "GBP"
