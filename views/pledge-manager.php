@@ -31,14 +31,19 @@ if (!function_exists('apache_request_headers')) {
 }
 
 $headers = @apache_request_headers();
+
 $userAccessToken = isset($headers['Access-Token']) ? $headers['Access-Token'] : false;
-$action = isset($_POST['action']) ? $_POST['action'] : false;
-$event = isset($_POST['event']) ? $_POST['event'] : false;
+$userAccessToken = isset($_SERVER['ACCESS_TOKEN']) ? $_SERVER['ACCESS_TOKEN'] : $userAccessToken;
+
+$action = isset($_GET['action']) ? $_GET['action'] : false;
+$action = isset($_POST['action']) ? $_POST['action'] : $action;
+
+$event = isset($_GET['event']) ? $_GET['event'] : false;
+$event = isset($_POST['event']) ? $_POST['event'] : $event;
 
 // Validate access token
 
-if ($userAccessToken && $userAccessToken === $_SESSION['serverAccessToken']) {
-
+if ($userAccessToken === $_SESSION['serverAccessToken']) {
   if ($action === 'recordPledge') {
     output(array(
       "pledgeRecord" => array(
@@ -48,7 +53,30 @@ if ($userAccessToken && $userAccessToken === $_SESSION['serverAccessToken']) {
       )
     ));
   } else if ($action === 'fetchPledgeConfig') {
-    @file_get_contents($filepath);
+    $filepath = dirname(__FILE__) . '/database/pledge-config.json';
+    $pledgeConfig = json_decode(@file_get_contents($filepath));
+    output($pledgeConfig);
+  } else {
+    output(array(
+      'error' => 'Unsupported action',
+      'action' => $action
+    ));
+  }
+  die();
+}
+
+// Hack for local dev
+
+if ($userAccessToken) {
+  if ($action === 'fetchPledgeConfig') {
+    $filepath = dirname(__FILE__) . '/database/pledge-config.json';
+    $pledgeConfig = json_decode(@file_get_contents($filepath));
+    output($pledgeConfig);
+  } else {
+    output(array(
+      'error' => 'Unsupported action',
+      'action' => $action
+    ));
   }
   die();
 }
@@ -64,4 +92,10 @@ if (!$userAccessToken) {
   ));
   $_SESSION['serverAccessToken'] = $token;
   die();
+} else {
+  output(array(
+    'error' => 'Unexpected behaviour',
+    'action' => $action,
+    'accessToken' => $userAccessToken
+  ));
 }

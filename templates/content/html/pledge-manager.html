@@ -1,5 +1,27 @@
 <div id="pledge-manager" style="display: none;">
-  <h2>Pledges</h2>
+  <div v-for="category in pledgeConfig.categories">
+    <h2 :class="category.categoryId">{{ category.title }}</h2>
+    <p>{{ category.description }}</p>
+    <div class="pledge options">
+      <div v-for="option in $root.pledgeConfig.pledgeOptions.filter(n => n.category === category.categoryId)" :class="['pledge', 'option', option.pledgeOptionId].join(' ')">
+        <span class="title">{{option.title}}</span>
+        <span class="description">{{option.description}}</span>
+        <span>{{ option.pledges | total }}</span>
+        <span>of</span>
+        <span :class="option.amount.unit">{{ option.amount.value }}</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="/javascript/pledge-manager.js"></script>
+
+<style>
+.pledge.option {
+  padding: 10px 0;
+  border-top: 2px solid white;
+}
+.pledge.option:last-child {
+  border-bottom: 2px solid white;
+}
+</style>

@@ -70,6 +70,7 @@ function renderPlaylist(req, res) {
 }
 
 function renderPledgeManager(req, res) {
+  console.log('Render pledge manager', req.header('Access-Token'))
   phpExpress.engine(path.join(__dirname, 'build/views/pledge-manager.php'), {
     method: req.method,
     get: req.query,
@@ -77,7 +78,8 @@ function renderPledgeManager(req, res) {
     server: {
       REQUEST_URI: req.url,
       HTTPS: true,
-      HTTP_REFERER: 'local-dev-server'
+      HTTP_REFERER: 'local-dev-server',
+      ACCESS_TOKEN: req.header('Access-Token')
     }
   }, (err, body) => {
     if (err) {
