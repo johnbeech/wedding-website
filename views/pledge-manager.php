@@ -14,7 +14,7 @@ function output($data) {
 // Block requests from invalid referrers
 
 $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : false;
-if ($referer !== $EXPECTED_DOMAIN) {
+if ($referer !== $EXPECTED_PLEDGES_REFERER) {
   output(array(
     'error' => 'INVALID_REFERER',
     'referer' => $referer
