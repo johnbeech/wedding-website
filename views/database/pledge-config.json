@@ -1,5 +1,36 @@
 {
   "pledgeOptions": [{
+    "pledgeOptionId": "P-1",
+    "category": "presents",
+    "title": "Board Games",
+    "description": "We don't really need any more board games, but maybe surprise us!",
+    "amount": {
+      "value": 5,
+      "unit": "Pledges"
+    },
+    "pledges": [],
+    "link": "https://boardgamegeek.com/collection/user/hannardynamite"
+  }, {
+    "pledgeOptionId": "P-2",
+    "category": "presents",
+    "title": "Lego",
+    "description": "We're sure there's a block head, space set, or extension to our Hogwarts castle we don't own...",
+    "amount": {
+      "value": 5,
+      "unit": "Pledges"
+    },
+    "pledges": []
+  }, {
+    "pledgeOptionId": "P-3",
+    "category": "presents",
+    "title": "Dinosaurs",
+    "description": "Our ever growing army of dinosaur plushies can always do with more pack members.",
+    "amount": {
+      "value": 5,
+      "unit": "Pledges"
+    },
+    "pledges": []
+  }, {
     "pledgeOptionId": "TTH-1",
     "category": "travel-to-honeymoon",
     "title": "The Escape Lounge",
