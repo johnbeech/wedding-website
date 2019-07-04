@@ -14,7 +14,7 @@
           <span>of</span>
           <span :class="[option.amount.unit, 'unit'].join(' ')">{{ option.amount.value }}</span>
         </span>
-        <span class="pledge button"><b>Pledge</b></span>
+        <span class="pledge button"><button>Pledge</button></span>
       </div>
     </div>
   </div>
@@ -44,29 +44,35 @@
 .pledge.option > span.progress {
   flex: 0 0 auto;
 }
-.pledge.option > span.pledge.button {
+.pledge.option > .pledge.button {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-content: center;
 }
-.pledge.option > span.pledge.button > b {
+.pledge.option > .pledge.button > button {
   flex: 0 0 auto;
-    background: #BB7BA0;
+  background: #BB7BA0;
   color: black;
   padding: 3px 6px;
-  border-radius: 5px;
   text-transform: uppercase;
   cursor: pointer;
   transition: background-color 350ms linear;
+  font-family: Lora, serif;
+  font-style: oblique;
+  font-size: 100%;
+  font-weight: 700;
+  outline: 0;
+  border: 0;
+  border-radius: 5px;
   border-bottom: 2px solid rgba(0,0,0,0.5);
 }
-.pledge.option > span.pledge.button > b:hover {
+.pledge.option > .pledge.button > button:hover {
   background: white;
   color: black;
   transition: background-color 75ms linear;
 }
-.pledge.option > span.pledge.button > b:active {
+.pledge.option > .pledge.button > button:active {
   background: #EEABD0;
   color: black;
   transition: background-color 75ms linear;
