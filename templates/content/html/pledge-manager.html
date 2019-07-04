@@ -3,12 +3,12 @@
     <h2 :class="category.categoryId">{{ category.title }}</h2>
     <p>{{ category.description }}</p>
     <div class="pledge options">
-      <div v-for="option in $root.pledgeConfig.pledgeOptions.filter(n => n.category === category.categoryId)" :class="['pledge', 'option', option.pledgeOptionId].join(' ')">
+      <div v-for="option in $root.pledgeConfig.pledgeOptions.filter(n => n.category === category.categoryId)" :class="`pledge option ${option.pledgeOptionId}`">
         <span class="title">
           <a :href="option.link" v-if="option.link"><b>{{option.title}}</b></a>
           <b v-else>{{option.title}}</b>
         </span>
-        <span class="description">{{option.description}}</span>
+        <span class="description" v-if="option.description">{{option.description}}</span>
         <span class="progress">
           <span class="total">{{ option.pledges | total }}</span>
           <span>of</span>
@@ -25,13 +25,14 @@
 <style>
 .pledge.option {
   padding: 10px 0;
-  border-top: 2px solid white;
+  border-top: 2px solid rgba(255,255,255,0.4);
   display: flex;
 }
 .pledge.option > span {
   flex: 0 0 auto;
-  margin: 0 4px;
+  margin: 4px 4px;
   text-align: left;
+  justify-content: space-around;
 }
 .pledge.option > span.title {
   flex: 1 1 auto;
@@ -71,14 +72,38 @@
   transition: background-color 75ms linear;
 }
 
-
 .pledge.option:last-child {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid rgba(255,255,255,0.4);
 }
 .unit.GBP::before {
   content: '£'
 }
 .unit.Pledges::after {
   content: ' pledges'
+}
+
+body {
+  margin-bottom: 40px;
+}
+
+
+@media only screen and (min-width: 660px) {
+}
+
+@media only screen and (max-width: 660px) {
+  #pledge-manager {
+    padding: 0 5px;
+  }
+  .pledge.option {
+    flex-wrap: wrap;
+  }
+  .pledge.option > span {
+    order: 1;
+  }
+  .pledge.option > span.description {
+    flex: 50 50 auto;
+    order: 5;
+    min-width: 80%;
+  }
 }
 </style>
