@@ -51,13 +51,26 @@
 }
 .pledge.option > span.pledge.button > b {
   flex: 0 0 auto;
-  background: white;
+    background: #BB7BA0;
   color: black;
   padding: 3px 6px;
-  border-radius: 3px;
+  border-radius: 5px;
   text-transform: uppercase;
   cursor: pointer;
+  transition: background-color 350ms linear;
+  border-bottom: 2px solid rgba(0,0,0,0.5);
 }
+.pledge.option > span.pledge.button > b:hover {
+  background: white;
+  color: black;
+  transition: background-color 75ms linear;
+}
+.pledge.option > span.pledge.button > b:active {
+  background: #EEABD0;
+  color: black;
+  transition: background-color 75ms linear;
+}
+
 
 .pledge.option:last-child {
   border-bottom: 2px solid white;
