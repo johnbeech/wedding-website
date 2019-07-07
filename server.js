@@ -11,7 +11,7 @@ app.use('/images', express.static(path.join(__dirname, 'build/images')))
 app.use('/javascript', express.static(path.join(__dirname, 'build/javascript')))
 app.get('/views/rsvp.php', renderRSVP)
 app.get('/views/playlist.php', renderPlaylist)
-app.get('/views/pledge-manager.php', renderPledgeManager)
+app.get('/views/registry-manager.php', renderRegistryManager)
 app.get('/*', render)
 app.post('/*', render)
 
@@ -69,9 +69,9 @@ function renderPlaylist(req, res) {
   })
 }
 
-function renderPledgeManager(req, res) {
-  console.log('Render pledge manager', req.header('Access-Token'))
-  phpExpress.engine(path.join(__dirname, 'build/views/pledge-manager.php'), {
+function renderRegistryManager(req, res) {
+  console.log('Render registry manager', req.header('Access-Token'))
+  phpExpress.engine(path.join(__dirname, 'build/views/registry-manager.php'), {
     method: req.method,
     get: req.query,
     post: req.body,

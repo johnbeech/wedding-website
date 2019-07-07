@@ -1,7 +1,7 @@
 const app = new Vue({
-  el: '#pledge-manager',
+  el: '#registry-manager',
   data: {
-    pledgeConfig: {},
+    registryConfig: {},
     accessToken: false
   },
   filters: {
@@ -9,36 +9,36 @@ const app = new Vue({
   }
 })
 
-function total(pledges) {
-  return pledges.reduce((acc, pledge) => {
-    const amount = pledge.amount && pledge.amount.value || 0
+function total(registrys) {
+  return registrys.reduce((acc, registry) => {
+    const amount = registry.amount && registry.amount.value || 0
     return acc + amount
   }, 0)
 }
 
 function requestAccessToken() {
-  $.getJSON('/views/pledge-manager.php')
+  $.getJSON('/views/registry-manager.php')
     .done(data => {
       const { accessToken } = data
       app.accessToken = accessToken
       // only show form when access token is received
-      const pledgeEl = document.getElementById('pledge-manager')
-      pledgeEl.style.display = 'block'
-      fetchPledgeConfig()
+      const registryEl = document.getElementById('registry-manager')
+      registryEl.style.display = 'block'
+      fetchRegistryConfig()
     })
 }
 
-function fetchPledgeConfig() {
+function fetchRegistryConfig() {
   $.ajax({
-     url: '/views/pledge-manager.php?action=fetchPledgeConfig',
+     url: '/views/registry-manager.php?action=fetchRegistryConfig',
      type: 'GET',
      dataType: 'json',
      data: {},
      success: function(data) {
-       app.pledgeConfig = data
+       app.registryConfig = data
      },
      error: function() {
-       app.error = 'Unable to load pledges'
+       app.error = 'Unable to load registrys'
      },
      beforeSend: setHeader
   })

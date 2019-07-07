@@ -44,18 +44,18 @@ $event = isset($_POST['event']) ? $_POST['event'] : $event;
 // Validate access token
 
 if ($userAccessToken === $_SESSION['serverAccessToken']) {
-  if ($action === 'recordPledge') {
+  if ($action === 'recordRegistry') {
     output(array(
-      "pledgeRecord" => array(
+      "registryRecord" => array(
         "name" => "NAME",
-        "pledgeOptionId" => "POI",
+        "registryOptionId" => "POI",
         "value" => "12345"
       )
     ));
-  } else if ($action === 'fetchPledgeConfig') {
-    $filepath = dirname(__FILE__) . '/database/pledge-config.json';
-    $pledgeConfig = json_decode(@file_get_contents($filepath));
-    output($pledgeConfig);
+  } else if ($action === 'fetchRegistryConfig') {
+    $filepath = dirname(__FILE__) . '/database/registry-config.json';
+    $registryConfig = json_decode(@file_get_contents($filepath));
+    output($registryConfig);
   } else {
     output(array(
       'error' => 'Unsupported action',
@@ -68,10 +68,10 @@ if ($userAccessToken === $_SESSION['serverAccessToken']) {
 // Hack for local dev
 
 if ($userAccessToken) {
-  if ($action === 'fetchPledgeConfig') {
-    $filepath = dirname(__FILE__) . '/database/pledge-config.json';
-    $pledgeConfig = json_decode(@file_get_contents($filepath));
-    output($pledgeConfig);
+  if ($action === 'fetchRegistryConfig') {
+    $filepath = dirname(__FILE__) . '/database/registry-config.json';
+    $registryConfig = json_decode(@file_get_contents($filepath));
+    output($registryConfig);
   } else {
     output(array(
       'error' => 'Unsupported action',

@@ -1,37 +1,37 @@
 {
-  "pledgeOptions": [{
-    "pledgeOptionId": "P-1",
+  "registryOptions": [{
+    "registryOptionId": "P-1",
     "category": "presents",
     "title": "Board Games",
     "description": "We don't really need any more board games, but maybe surprise us!",
     "amount": {
       "value": 5,
-      "unit": "Pledges"
+      "unit": "Gifts"
     },
-    "pledges": [],
+    "registrys": [],
     "link": "https://boardgamegeek.com/collection/user/hannardynamite"
   }, {
-    "pledgeOptionId": "P-2",
+    "registryOptionId": "P-2",
     "category": "presents",
     "title": "Lego",
     "description": "We're sure there's a block head, space set, or extension to our Hogwarts castle we don't own...",
     "amount": {
       "value": 5,
-      "unit": "Pledges"
+      "unit": "Gifts"
     },
-    "pledges": []
+    "registrys": []
   }, {
-    "pledgeOptionId": "P-3",
+    "registryOptionId": "P-3",
     "category": "presents",
     "title": "Dinosaurs",
     "description": "Our ever growing army of dinosaur plushies can always do with more pack members.",
     "amount": {
       "value": 5,
-      "unit": "Pledges"
+      "unit": "Gifts"
     },
-    "pledges": []
+    "registrys": []
   }, {
-    "pledgeOptionId": "TTH-1",
+    "registryOptionId": "TTH-1",
     "category": "travel-to-honeymoon",
     "title": "The Escape Lounge",
     "amount": {
@@ -39,9 +39,9 @@
       "unit": "GBP"
     },
     "link": "/images/Manchester%20T1%20-%20HD%20.pdf",
-    "pledges": []
+    "registrys": []
   }, {
-    "pledgeOptionId": "HDT-1",
+    "registryOptionId": "HDT-1",
     "category": "honeymoon-day-trips",
     "title": "Dolphin Swim",
     "description": "Dolphin Swim and Benitiers Island Day Trip with Lunch",
@@ -51,7 +51,7 @@
       "unit": "GBP"
     },
     "currency": "GBP",
-    "pledges": [{
+    "registrys": [{
       "name": "John",
       "amount": {
         "value": 45,
@@ -59,7 +59,7 @@
       }
     }]
   }, {
-    "pledgeOptionId": "HDT-2",
+    "registryOptionId": "HDT-2",
     "category": "honeymoon-day-trips",
     "title": "Catamaran Cruise",
     "description": "Catamaran Cruises Mauritius Full-Day Cruise to Isle Aux Cerfs",
@@ -69,9 +69,9 @@
       "unit": "GBP"
     },
     "currency": "GBP",
-    "pledges": []
+    "registrys": []
   }, {
-    "pledgeOptionId": "HDT-3",
+    "registryOptionId": "HDT-3",
     "category": "honeymoon-day-trips",
     "title": "Day Tour",
     "description": "Full-Day Tour of South West Mauritius",
@@ -81,11 +81,11 @@
       "unit": "GBP"
     },
     "currency": "GBP",
-    "pledges": []
+    "registrys": []
   }],
   "categories": [{
     "categoryId": "presents",
-    "title": "Registry Ideas",
+    "title": "Gift Ideas",
     "description": "Things to help us remember our wedding day:"
   }, {
     "categoryId": "travel-to-honeymoon",

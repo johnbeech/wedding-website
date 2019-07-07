@@ -49,8 +49,8 @@ const modes = {
   'live-attendee-list': () => deploy({
     include: ['**/attendee*']
   }),
-  'live-pledge-manager': () => deploy({
-    include: ['**/pledge*']
+  'live-registry-manager': () => deploy({
+    include: ['**/registry*']
   }),
   'live-favicon': () => deploy({
     include: ['images/fv/*.*']
