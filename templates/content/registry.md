@@ -6,4 +6,6 @@ Your presence at our wedding is present enough, but if you'd like to bring somet
 
 If giving money, please note what you intend the money for, and we'll do our best to spend it lovingly.
 
-![Mauritius](/images/mauritius.jpg)
+*Please make cheques payable either to Hannah Bunce, or John Beech.*
+
+![Aerial photo of Mauritius and the surrounding ocean](/images/mauritius.jpg)
