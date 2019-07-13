@@ -11,7 +11,6 @@ app.use('/images', express.static(path.join(__dirname, 'build/images')))
 app.use('/javascript', express.static(path.join(__dirname, 'build/javascript')))
 app.get('/views/rsvp.php', renderRSVP)
 app.get('/views/playlist.php', renderPlaylist)
-app.get('/views/registry-manager.php', renderRegistryManager)
 app.get('/*', render)
 app.post('/*', render)
 
@@ -59,27 +58,6 @@ function renderPlaylist(req, res) {
     server: {
       REQUEST_URI: req.url,
       HTTPS: true
-    }
-  }, (err, body) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      res.send(body)
-    }
-  })
-}
-
-function renderRegistryManager(req, res) {
-  console.log('Render registry manager', req.header('Access-Token'))
-  phpExpress.engine(path.join(__dirname, 'build/views/registry-manager.php'), {
-    method: req.method,
-    get: req.query,
-    post: req.body,
-    server: {
-      REQUEST_URI: req.url,
-      HTTPS: true,
-      HTTP_REFERER: 'local-dev-server',
-      ACCESS_TOKEN: req.header('Access-Token')
     }
   }, (err, body) => {
     if (err) {
