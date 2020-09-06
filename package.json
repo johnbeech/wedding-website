@@ -30,7 +30,7 @@
   "devDependencies": {
     "exif": "^0.6.0",
     "ftp-deploy": "^2.3.1",
-    "handlebars": "^4.3.0",
+    "handlebars": "^4.5.3",
     "nodemon": "^1.18.10"
   },
   "dependencies": {
