@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "php-express": "git://github.com/Markavian/php-express.git#patch-1",
     "promise-path": "^1.4.0"
   }
